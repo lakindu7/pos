@@ -33,6 +33,7 @@
                                                     <td class="py-3">{{ $childcategory->name }}</td>
                                                     <td>{{ Str::limit($childcategory->description, 25, '...') }}</td>
                                                     <td>{{ $childcategory->category->name }}</td>
+                                                    <td>{{ $childcategory->subcategory->name }}</td>
                                                     <td class="py-3">{{ $childcategory->created_at->format('F d, Y') }}
                                                     </td>
                                                     <td class="py-3">

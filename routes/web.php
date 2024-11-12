@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/childcategories/{id}', 'edit')->name('childcategories.edit');
             Route::post('/childcategories/{id}', 'update')->name('childcategories.update');
             Route::post('/childcategories/delete/{id}', 'destroy')->name('childcategories.destroy');
+            Route::get('/getsubcategories/{categoryId}', 'getByCategory')->name('subcategories.byCategory');
         });
     });
 });

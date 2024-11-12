@@ -19,7 +19,7 @@
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
-                                        <label for="cmbCategory">Image</label>
+                                        <label for="cmbCategory">Category *</label>
                                         <select name="category_id" id="cmbCategory" class="form-control" required>
                                             <option value="" selected disabled>Select Category</option>
                                             @foreach ($categories as $key => $category)
