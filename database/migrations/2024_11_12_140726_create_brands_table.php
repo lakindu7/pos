@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('code')->nullable();
             $table->string('image')->nullable();
+            $table->integer('status')->default(1)->comment('0->disabled,1->active,2->deleted');
             $table->timestamps();
         });
     }

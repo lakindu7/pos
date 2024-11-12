@@ -1,13 +1,13 @@
-@extends('layouts.admin', ['pagetitle' => 'Category Management', 'subtitle' => 'Create Category', 'selectedlink' => 'Products'])
+@extends('layouts.admin', ['pagetitle' => 'Brands Management', 'subtitle' => 'Create Brand', 'selectedlink' => 'Products'])
 @section('content')
     <div class="row">
         <div class="col-12 mb-3 mb-md-4">
             <div class="card h-100 pb-5">
                 <div class="card-header d-flex">
-                    <h5 class="h6 font-weight-semi-bold text-uppercase mb-0">Create Category</h5>
+                    <h5 class="h6 font-weight-semi-bold text-uppercase mb-0">Create Brand</h5>
                 </div>
                 <div class="card-body p-0">
-                    <form action="{{ route('categories.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('brands.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="container-fluid">
                             <div class="row">
@@ -22,14 +22,6 @@
                                         <label for="fleImage">Image</label>
                                         <input type="file" class="form-control" id="fleImage" name="image"
                                             accept="image/*">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="txtDescription">Description</label>
-                                        <textarea name="description" id="txtDescription" cols="30" rows="4" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>

@@ -34,9 +34,6 @@
                 <li class="side-nav-menu-item">
                     <a class="side-nav-menu-link" href="user-edit.html">Update Prices</a>
                 </li>
-                <li class="side-nav-menu-item">
-                    <a class="side-nav-menu-link" href="user-edit.html">Units</a>
-                </li>
                 <li class="side-nav-menu-item {{ $pagetitle == 'Category Management' ? 'active' : '' }}">
                     <a class="side-nav-menu-link" href="{{ route('categories') }}">Categories</a>
                 </li>
@@ -46,8 +43,8 @@
                 <li class="side-nav-menu-item {{ $pagetitle == 'Child Category Management' ? 'active' : '' }}">
                     <a class="side-nav-menu-link" href="{{ route('childcategories') }}">Child Categories</a>
                 </li>
-                <li class="side-nav-menu-item">
-                    <a class="side-nav-menu-link" href="user-edit.html">Brands</a>
+                <li class="side-nav-menu-item {{ $pagetitle == 'Brands Management' ? 'active' : '' }}">
+                    <a class="side-nav-menu-link" href="{{ route('brands') }}">Brands</a>
                 </li>
             </ul>
         </li>

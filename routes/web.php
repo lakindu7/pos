@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChildCategoryController;
 use App\Http\Controllers\ProfileController;
@@ -40,7 +41,7 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::controller(SubcategoryController::class)->group(function () {
-            Route::get('subcategories',  'index')->name('subcategories');
+            Route::get('/subcategories',  'index')->name('subcategories');
             Route::get('/subcategories/create', 'create')->name('subcategories.create');
             Route::post('/subcategories/store', 'store')->name('subcategories.store');
             Route::get('/subcategories/{id}', 'edit')->name('subcategories.edit');
@@ -49,13 +50,22 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::controller(ChildCategoryController::class)->group(function () {
-            Route::get('childcategories',  'index')->name('childcategories');
+            Route::get('/childcategories',  'index')->name('childcategories');
             Route::get('/childcategories/create', 'create')->name('childcategories.create');
             Route::post('/childcategories/store', 'store')->name('childcategories.store');
             Route::get('/childcategories/{id}', 'edit')->name('childcategories.edit');
             Route::post('/childcategories/{id}', 'update')->name('childcategories.update');
             Route::post('/childcategories/delete/{id}', 'destroy')->name('childcategories.destroy');
             Route::get('/getsubcategories/{categoryId}', 'getByCategory')->name('subcategories.byCategory');
+        });
+
+        Route::controller(BrandController::class)->group(function () {
+            Route::get('/brands',  'index')->name('brands');
+            Route::get('/brands/create', 'create')->name('brands.create');
+            Route::post('/brands/store', 'store')->name('brands.store');
+            Route::get('/brands/{id}', 'edit')->name('brands.edit');
+            Route::post('/brands/{id}', 'update')->name('brands.update');
+            Route::post('/brands/delete/{id}', 'destroy')->name('brands.destroy');
         });
     });
 });
