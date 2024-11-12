@@ -72,10 +72,11 @@
                         aria-haspopup="true" aria-expanded="false" data-unfold-event="click"
                         data-unfold-target="#profileMenu" data-unfold-type="css-animation" data-unfold-duration="300"
                         data-unfold-animation-in="fadeIn" data-unfold-animation-out="fadeOut">
-                        <span class="mr-md-2 avatar-placeholder">J</span>
-                        <span class="d-none d-md-block">John Doe</span>
+                        <span class="mr-md-2 avatar-placeholder">{{ strtoupper(Auth::user()->name[0]) }}</span>
+                        <span class="d-none d-md-block">{{ Auth::user()->name }}</span>
                         <i class="gd-angle-down d-none d-md-block ml-2"></i>
                     </a>
+
                     <ul id="profileMenu"
                         class="unfold unfold-user unfold-light unfold-top unfold-centered position-absolute pt-2 pb-1 mt-4 unfold-css-animation unfold-hidden fadeOut"
                         aria-labelledby="profileMenuInvoker" style="animation-duration: 300ms;">
@@ -88,12 +89,18 @@
                             </a>
                         </li>
                         <li class="unfold-item unfold-item-has-divider">
-                            <a class="unfold-link d-flex align-items-center text-nowrap" href="#">
-                                <span class="unfold-item-icon mr-3">
-                                    <i class="gd-power-off"></i>
-                                </span>
-                                Sign Out
-                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a class="unfold-link d-flex align-items-center text-nowrap"
+                                    href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                    <span class="unfold-item-icon mr-3">
+                                        <i class="gd-power-off"></i>
+                                    </span>
+                                    Sign Out
+                                </a>
+                            </form>
                         </li>
                     </ul>
                 </div>

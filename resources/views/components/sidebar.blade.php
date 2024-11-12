@@ -1,6 +1,6 @@
 <aside id="sidebar" class="js-custom-scroll side-nav">
     <ul id="sideNav" class="side-nav-menu side-nav-menu-top-level mb-0">
-        <li class="sidebar-heading h6">Dashboard</li>
+        <li class="sidebar-heading h6">Navigation</li>
         <li class="side-nav-menu-item ">
             <a class="side-nav-menu-link media align-items-center" href="/">
                 <span class="side-nav-menu-icon d-flex mr-3">
@@ -9,7 +9,10 @@
                 <span class="side-nav-fadeout-on-closed media-body">Dashboard</span>
             </a>
         </li>
-        <li class="side-nav-menu-item side-nav-has-menu">
+        <li
+            class="side-nav-menu-item side-nav-has-menu @isset($selectedlink)
+    {{ $selectedlink === 'Products' ? 'active  side-nav-opened' : '' }}
+@endisset">
             <a class="side-nav-menu-link media align-items-center" href="#" data-target="#products">
                 <span class="side-nav-menu-icon d-flex mr-3">
                     <i class="gd-package"></i>
@@ -20,7 +23,8 @@
                 </span>
                 <span class="side-nav__indicator side-nav-fadeout-on-closed"></span>
             </a>
-            <ul id="products" class="side-nav-menu side-nav-menu-second-level mb-0">
+            <ul id="products" class="side-nav-menu side-nav-menu-second-level mb-0"
+                @isset($selectedlink) @if ($selectedlink === 'Products') style="display: block;" @endif @endisset>
                 <li class="side-nav-menu-item">
                     <a class="side-nav-menu-link" href="users.html">All Products</a>
                 </li>
@@ -33,14 +37,14 @@
                 <li class="side-nav-menu-item">
                     <a class="side-nav-menu-link" href="user-edit.html">Units</a>
                 </li>
-                <li class="side-nav-menu-item">
-                    <a class="side-nav-menu-link" href="user-edit.html">Categories</a>
+                <li class="side-nav-menu-item {{ $pagetitle == 'Category Management' ? 'active' : '' }}">
+                    <a class="side-nav-menu-link" href="{{ route('categories') }}">Categories</a>
                 </li>
-                <li class="side-nav-menu-item">
-                    <a class="side-nav-menu-link" href="user-edit.html">Subcategories</a>
+                <li class="side-nav-menu-item {{ $pagetitle == 'Subcategory Management' ? 'active' : '' }}">
+                    <a class="side-nav-menu-link" href="{{ route('subcategories') }}">Subcategories</a>
                 </li>
-                <li class="side-nav-menu-item">
-                    <a class="side-nav-menu-link" href="user-edit.html">Child Categories</a>
+                <li class="side-nav-menu-item {{ $pagetitle == 'Child Category Management' ? 'active' : '' }}">
+                    <a class="side-nav-menu-link" href="{{ route('childcategories') }}">Child Categories</a>
                 </li>
                 <li class="side-nav-menu-item">
                     <a class="side-nav-menu-link" href="user-edit.html">Brands</a>
