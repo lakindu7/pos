@@ -34,6 +34,9 @@
                 <li class="side-nav-menu-item">
                     <a class="side-nav-menu-link" href="user-edit.html">Update Prices</a>
                 </li>
+                <li class="side-nav-menu-item {{ $pagetitle == 'Variations Management' ? 'active' : '' }}">
+                    <a class="side-nav-menu-link" href="{{ route('variations') }}">Variations</a>
+                </li>
                 <li class="side-nav-menu-item {{ $pagetitle == 'Category Management' ? 'active' : '' }}">
                     <a class="side-nav-menu-link" href="{{ route('categories') }}">Categories</a>
                 </li>
@@ -45,6 +48,9 @@
                 </li>
                 <li class="side-nav-menu-item {{ $pagetitle == 'Brands Management' ? 'active' : '' }}">
                     <a class="side-nav-menu-link" href="{{ route('brands') }}">Brands</a>
+                </li>
+                <li class="side-nav-menu-item {{ $pagetitle == 'Sections Management' ? 'active' : '' }}">
+                    <a class="side-nav-menu-link" href="{{ route('sections') }}">Sales Sections</a>
                 </li>
             </ul>
         </li>

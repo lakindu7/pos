@@ -4,8 +4,10 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChildCategoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VariationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -66,6 +68,15 @@ Route::middleware('auth')->group(function () {
             Route::get('/brands/{id}', 'edit')->name('brands.edit');
             Route::post('/brands/{id}', 'update')->name('brands.update');
             Route::post('/brands/delete/{id}', 'destroy')->name('brands.destroy');
+        });
+
+        Route::controller(SectionController::class)->group(function () {
+            Route::get('/sections',  'index')->name('sections');
+            Route::get('/sections/create', 'create')->name('sections.create');
+            Route::post('/sections/store', 'store')->name('sections.store');
+            Route::get('/sections/{id}', 'edit')->name('sections.edit');
+            Route::post('/sections/{id}', 'update')->name('sections.update');
+            Route::post('/sections/delete/{id}', 'destroy')->name('sections.destroy');
         });
     });
 });
