@@ -27,11 +27,12 @@
         </div>
     </main>
 
-
     <script src="{{ asset('dist/graindashboard/js/graindashboard.js') }}"></script>
     <script src="{{ asset('dist/graindashboard/js/graindashboard.vendor.js') }}"></script>
     <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.tiny.cloud/1/{{ env('TINYMCE_API') }}/tinymce/7/tinymce.min.js" referrerpolicy="origin">
+    </script>
 
     <script>
         $(document).ready(function() {

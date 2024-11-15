@@ -3,8 +3,10 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChildCategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VariationController;
@@ -77,6 +79,28 @@ Route::middleware('auth')->group(function () {
             Route::get('/sections/{id}', 'edit')->name('sections.edit');
             Route::post('/sections/{id}', 'update')->name('sections.update');
             Route::post('/sections/delete/{id}', 'destroy')->name('sections.destroy');
+        });
+
+        Route::controller(ProductController::class)->group(function () {
+            Route::get('/products',  'index')->name('products');
+            Route::get('/products/view/{id}', 'view')->name('products.view');
+            Route::get('/products/create', 'create')->name('products.create');
+            Route::post('/products/store', 'store')->name('products.store');
+            Route::get('/products/{id}', 'edit')->name('products.edit');
+            Route::post('/products/{id}', 'update')->name('products.update');
+            Route::post('/products/delete/{id}', 'destroy')->name('products.destroy');
+            Route::get('/get-subcategories/{categoryId}', 'getSubcategories');
+            Route::get('/get-childcategories/{subcategoryId}', 'getChildCategories');
+        });
+
+        Route::controller(StockController::class)->group(function () {
+            Route::get('/stocks',  'index')->name('stocks');
+            Route::get('/stocks/view/{id}', 'view')->name('stocks.view');
+            Route::get('/stocks/create/{id}', 'create')->name('stocks.create');
+            Route::post('/stocks/store/{id}', 'store')->name('stocks.store');
+            Route::get('/stocks/{id}', 'edit')->name('stocks.edit');
+            Route::post('/stocks/{id}', 'update')->name('stocks.update');
+            Route::post('/stocks/delete/{id}', 'destroy')->name('stocks.destroy');
         });
     });
 });

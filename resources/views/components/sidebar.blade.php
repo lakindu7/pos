@@ -25,17 +25,14 @@
             </a>
             <ul id="products" class="side-nav-menu side-nav-menu-second-level mb-0"
                 @isset($selectedlink) @if ($selectedlink === 'Products') style="display: block;" @endif @endisset>
-                <li class="side-nav-menu-item">
-                    <a class="side-nav-menu-link" href="users.html">All Products</a>
+                <li class="side-nav-menu-item {{ $pagetitle == 'Products Management' ? 'active' : '' }}">
+                    <a class="side-nav-menu-link" href="{{ route('products') }}">Products</a>
                 </li>
-                <li class="side-nav-menu-item">
-                    <a class="side-nav-menu-link" href="user-edit.html">Add Product</a>
+                <li class="side-nav-menu-item {{ $pagetitle == 'Stocks Management' ? 'active' : '' }}">
+                    <a class="side-nav-menu-link" href="{{ route('stocks') }}">Stocks</a>
                 </li>
                 <li class="side-nav-menu-item">
                     <a class="side-nav-menu-link" href="user-edit.html">Update Prices</a>
-                </li>
-                <li class="side-nav-menu-item {{ $pagetitle == 'Variations Management' ? 'active' : '' }}">
-                    <a class="side-nav-menu-link" href="{{ route('variations') }}">Variations</a>
                 </li>
                 <li class="side-nav-menu-item {{ $pagetitle == 'Category Management' ? 'active' : '' }}">
                     <a class="side-nav-menu-link" href="{{ route('categories') }}">Categories</a>
