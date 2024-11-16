@@ -3,13 +3,16 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChildCategoryController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RewardSettingController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\VariationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -101,6 +104,34 @@ Route::middleware('auth')->group(function () {
             Route::get('/stocks/{id}', 'edit')->name('stocks.edit');
             Route::post('/stocks/{id}', 'update')->name('stocks.update');
             Route::post('/stocks/delete/{id}', 'destroy')->name('stocks.destroy');
+        });
+
+        Route::controller(CustomerController::class)->group(function () {
+            Route::get('/customers', 'index')->name('customers');
+            Route::get('/customers/create', 'create')->name('customers.create');
+            Route::post('/customers/store', 'store')->name('customers.store');
+            Route::get('/customers/{id}', 'edit')->name('customers.edit');
+            Route::post('/customers/{id}', 'update')->name('customers.update');
+            Route::post('/customers/delete/{id}', 'destroy')->name('customers.destroy');
+        });
+
+        Route::controller(InvoiceController::class)->group(function () {
+            Route::get('/invoices', 'index')->name('invoices');
+            Route::get('/invoices/create', 'create')->name('invoices.create');
+            Route::post('/invoices/store', 'store')->name('invoices.store');
+            Route::get('/invoices/{id}', 'edit')->name('invoices.edit');
+            Route::post('/invoices/{id}', 'update')->name('invoices.update');
+            Route::post('/invoices/delete/{id}', 'destroy')->name('invoices.destroy');
+        });
+
+        Route::controller(SettingsController::class)->group(function () {
+            Route::get('/settings', 'index')->name('settings');
+            Route::post('/settings/update', 'update')->name('settings.update');
+        });
+
+        Route::controller(RewardSettingController::class)->group(function () {
+            Route::get('/settings/rewards', 'index')->name('rewards');
+            Route::post('/settings/rewards/update', 'update')->name('rewards.update');
         });
     });
 });

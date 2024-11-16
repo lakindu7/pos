@@ -8,6 +8,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link rel="shortcut icon" href="{{ asset('dist/img/favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset('dist/graindashboard/css/graindashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/app.css') }}">
     <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
 </head>
 

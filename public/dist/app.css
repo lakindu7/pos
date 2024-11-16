@@ -1,0 +1,38 @@
+/* Custom toggle switch styles */
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.custom-control-label::before {
+    width: 50px; /* Increased width for a bigger switch */
+    height: 26px; /* Increased height for a bigger switch */
+    border-radius: 13px; /* Half the height for rounded ends */
+    background-color: #ddd;
+    transition: all 0.3s ease-in-out;
+}
+
+.custom-control-label::after {
+    top: 3px;
+    left: 3px;
+    width: 20px; /* Larger toggle button */
+    height: 25px;
+    border-radius: 50%;
+    background-color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+.custom-control-input:checked ~ .custom-control-label::after {
+    transform: translateX(24px); /* Adjust translation for larger switch */
+}
+
+/* Align label to the left of the switch */
+.switch-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.switch-wrapper .switch-label {
+    margin-right: 10px; /* Spacing between label and switch */
+    font-size: 1.2rem; /* Make label larger */
+}
