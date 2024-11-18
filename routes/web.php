@@ -12,6 +12,7 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -113,6 +114,15 @@ Route::middleware('auth')->group(function () {
             Route::get('/customers/{id}', 'edit')->name('customers.edit');
             Route::post('/customers/{id}', 'update')->name('customers.update');
             Route::post('/customers/delete/{id}', 'destroy')->name('customers.destroy');
+        });
+
+        Route::controller(SupplierController::class)->group(function () {
+            Route::get('/suppliers', 'index')->name('suppliers');
+            Route::get('/suppliers/create', 'create')->name('suppliers.create');
+            Route::post('/suppliers/store', 'store')->name('suppliers.store');
+            Route::get('/suppliers/{id}', 'edit')->name('suppliers.edit');
+            Route::post('/suppliers/{id}', 'update')->name('suppliers.update');
+            Route::post('/suppliers/delete/{id}', 'destroy')->name('suppliers.destroy');
         });
 
         Route::controller(InvoiceController::class)->group(function () {

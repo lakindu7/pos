@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Stock;
 use App\Models\Product;
 use App\Models\Section;
 use App\Models\Category;
-use App\Models\Childcategory;
-use App\Models\Stock;
+use App\Models\Supplier;
 use App\Models\Subcategory;
-use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\File;
+use Illuminate\Http\Request;
+use App\Models\Childcategory;
+use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -34,6 +35,7 @@ class ProductController extends Controller
                 ->addColumn('subcategory', fn($product) => $product->subcategory->name ?? '')
                 ->addColumn('childcategory', fn($product) => $product->childcategory->name ?? '')
                 ->addColumn('brand', fn($product) => $product->brand->name ?? '')
+                ->addColumn('supplier', fn($product) => $product->supplier->name ?? '')
                 ->addColumn('created_by', fn($product) => $product->user->name ?? '')
                 ->addColumn('created_date', fn($product) => $product->created_at->format('F d, Y'))
                 ->addColumn('action', function ($product) {
@@ -61,7 +63,8 @@ class ProductController extends Controller
         $categories = Category::where('status', 1)->get();
         $brands = Brand::where('status', 1)->get();
         $sections = Section::where('status', 1)->get();
-        return view('products.create', compact('categories', 'brands', 'sections'));
+        $suppliers = Supplier::where('status', 1)->get();
+        return view('products.create', compact('categories', 'brands', 'sections', 'suppliers'));
     }
 
     public function getSubcategories($categoryId)
@@ -170,7 +173,8 @@ class ProductController extends Controller
         $product = Product::with(
             'category',
             'brand',
-            'user'
+            'user',
+            'supplier'
         )->findOrFail($id);
 
         $stocks = Stock::with('user')->where('product_id', $id)->where('availablequantity', '>', 0)->where('status', 1)->get();
@@ -186,7 +190,8 @@ class ProductController extends Controller
         $childcategories = Childcategory::where('status', 1)->where('subcategory_id', $product->subcategory_id)->get();
         $brands = Brand::where('status', 1)->get();
         $sections = Section::where('status', 1)->get();
-        return view('products.edit', compact('product', 'categories', 'brands', 'sections', 'subcategories', 'childcategories'));
+        $suppliers = Supplier::where('status', 1)->get();
+        return view('products.edit', compact('product', 'categories', 'brands', 'sections', 'subcategories', 'childcategories', 'suppliers'));
     }
 
     public function update(Request $request, $id)
@@ -200,6 +205,7 @@ class ProductController extends Controller
         $product->subcategory_id = $request->input('subcategory_id') ?: null;
         $product->childcategory_id = $request->input('childcategory_id') ?: null;
         $product->brand_id = $request->input('brand_id');
+        $product->supplier_id = $request->input('supplier_id');
         $product->section_id = $request->input('section_id') ?: null;
         $product->sellingtype = $request->input('sellingtype');
         $product->alertlimit = $request->input('alertlimit', 0);

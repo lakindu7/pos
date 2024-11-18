@@ -119,11 +119,21 @@
                                         </select>
                                     </div>
                                 </div>
-
+                                <div class="col-12 col-md-3">
+                                    <div class="form-group">
+                                        <label for="cmbSupplier">Supplier *</label>
+                                        <select name="supplier_id" id="cmbSupplier" class="form-control" required>
+                                            <option value="" selected disabled>Select Supplier</option>
+                                            @foreach ($suppliers as $supplier)
+                                                <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-12 col-md-3">
                                     <div class="form-group">
                                         <label for="txtYoutube">Youtube Link</label>
-                                        <input type="number" class="form-control" id="txtYoutube" name="youtubelink">
+                                        <input type="url" class="form-control" id="txtYoutube" name="youtubelink">
                                     </div>
                                 </div>
                             </div>
@@ -250,6 +260,13 @@
                 });
             });
 
+        });
+
+        $(document).ready(function() {
+            $('#cmbSupplier').select2({
+                placeholder: 'Select Supplier',
+                allowClear: true
+            });
         });
     </script>
 @endpush

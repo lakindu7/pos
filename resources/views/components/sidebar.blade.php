@@ -25,6 +25,14 @@
                 <span class="side-nav-fadeout-on-closed media-body">Customer Management</span>
             </a>
         </li>
+        <li class="side-nav-menu-item {{ $pagetitle == 'Supplier Management' ? 'active' : '' }}">
+            <a class="side-nav-menu-link media align-items-center" href="{{ route('suppliers') }}">
+                <span class="side-nav-menu-icon d-flex mr-3">
+                    <i class="gd-user"></i>
+                </span>
+                <span class="side-nav-fadeout-on-closed media-body">Supplier Management</span>
+            </a>
+        </li>
         <li
             class="side-nav-menu-item side-nav-has-menu @isset($selectedlink)
     {{ $selectedlink === 'Products' ? 'active  side-nav-opened' : '' }}

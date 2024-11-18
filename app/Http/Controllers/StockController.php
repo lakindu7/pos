@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Stock;
 use App\Models\Product;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
+use Exception;
 
 class StockController extends Controller
 {
@@ -27,6 +30,7 @@ class StockController extends Controller
                 ->addColumn('subcategory', fn($product) => $product->subcategory->name ?? '')
                 ->addColumn('childcategory', fn($product) => $product->childcategory->name ?? '')
                 ->addColumn('brand', fn($product) => $product->brand->name ?? '')
+                ->addColumn('supplier', fn($product) => $product->supplier->name ?? '')
                 ->addColumn('created_by', fn($product) => $product->user->name ?? '')
                 ->addColumn('created_date', fn($product) => $product->created_at->format('F d, Y'))
                 ->addColumn('action', function ($product) {
@@ -70,7 +74,64 @@ class StockController extends Controller
         $stock->buyingtotal = $buyingtotal;
         $stock->save();
 
+        if ($product->supplier_id != null) {
+            $supplier = Supplier::find($product->supplier_id);
+            $date = Carbon::now()->format('Y-m-d');
+            $frequency = $supplier->frequency;
+            $day = $supplier->delivaryday;
+            $nextDelivery = $this->calculateNextDeliveryDate($date, $frequency, $day);
+            $supplier->lastdelivary = $date;
+            $supplier->nextdelivary = $nextDelivery;
+            $supplier->save();
+        }
+
         return redirect()->route('stocks')->with('success', 'Stock added successfully.');
+    }
+
+
+
+    public function calculateNextDeliveryDate($date, $frequency, $day)
+    {
+        $currentDate = Carbon::parse($date);
+        switch ($frequency) {
+            case 'daily':
+                $nextDeliveryDate = $currentDate->addDay();
+                break;
+            case 'weekly':
+                $nextDeliveryDate = $currentDate->addWeek();
+                break;
+            case 'monthly':
+                $nextDeliveryDate = $currentDate->addMonth();
+                break;
+            case 'quarterly':
+                $nextDeliveryDate = $currentDate->addMonths(3);
+                break;
+            case 'annually':
+                $nextDeliveryDate = $currentDate->addYear();
+                break;
+            default:
+                $nextDeliveryDate = $currentDate;
+                break;
+        }
+
+        if ($frequency !== 'daily' && $frequency !== 'weekly') {
+            $date = Carbon::parse($nextDeliveryDate);
+
+            $weekdayIndex = [
+                'monday' => Carbon::MONDAY,
+                'tuesday' => Carbon::TUESDAY,
+                'wednesday' => Carbon::WEDNESDAY,
+                'thursday' => Carbon::THURSDAY,
+                'friday' => Carbon::FRIDAY,
+                'saturday' => Carbon::SATURDAY,
+                'sunday' => Carbon::SUNDAY
+            ];
+
+            $nextDeliveryDate = $date->copy()->startOfWeek()->addDays($weekdayIndex[$day] - 1);
+            return $nextDeliveryDate->format('Y-m-d');
+        }
+
+        return $nextDeliveryDate->format('Y-m-d');
     }
 
     function generateStockID()

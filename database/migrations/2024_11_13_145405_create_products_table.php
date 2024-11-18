@@ -32,6 +32,7 @@ return new class extends Migration
             $table->integer('childcategory_id')->nullable();
             $table->integer('brand_id')->nullable();
             $table->integer('section_id');
+            $table->integer('supplier_id')->nullable();
             $table->integer('user_id');
             $table->timestamps();
         });

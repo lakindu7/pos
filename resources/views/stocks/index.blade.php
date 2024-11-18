@@ -23,6 +23,7 @@
                                                 <th>Subcategory</th>
                                                 <th>Child Category</th>
                                                 <th>Brand</th>
+                                                <th>Supplier</th>
                                                 <th>Created By</th>
                                                 <th>Created Date</th>
                                                 <th>Actions</th>
@@ -84,6 +85,10 @@
                     {
                         data: 'brand',
                         name: 'brand.name'
+                    },
+                    {
+                        data: 'supplier',
+                        name: 'supplier.name'
                     },
                     {
                         data: 'created_by',

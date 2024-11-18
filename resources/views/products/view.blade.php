@@ -53,6 +53,10 @@
                                     {{ $product->section->name ?? 'N/A' }}
                                 </p>
                                 <p>
+                                    <b>Supplier:</b>
+                                    {{ $product->supplier->name ?? 'N/A' }}
+                                </p>
+                                <p>
                                     <b>Created by at:</b>
                                     {{ $product->user->name . ' (' . $product->created_at->format('F d, Y') . ')' ?? 'N/A' }}
                                 </p>

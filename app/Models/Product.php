@@ -25,6 +25,7 @@ class Product extends Model
         'childcategory_id',
         'brand_id',
         'section_id',
+        'supplier_id',
         'user_id'
     ];
 
@@ -61,5 +62,10 @@ class Product extends Model
     public function stock()
     {
         return $this->hasMany(Stock::class);
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
     }
 }

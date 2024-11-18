@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('dist/graindashboard/css/graindashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/app.css') }}">
     <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body class="has-sidebar has-fixed-sidebar-and-header">
@@ -34,6 +35,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.tiny.cloud/1/{{ env('TINYMCE_API') }}/tinymce/7/tinymce.min.js" referrerpolicy="origin">
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
         $(document).ready(function() {
