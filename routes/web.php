@@ -132,6 +132,7 @@ Route::middleware('auth')->group(function () {
         Route::controller(RewardSettingController::class)->group(function () {
             Route::get('/settings/rewards', 'index')->name('rewards');
             Route::post('/settings/rewards/update', 'update')->name('rewards.update');
+            Route::post('/update-toggle-status',  'updateToggleStatus');
         });
     });
 });

@@ -25,13 +25,31 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-3">
                                     <div class="form-group">
                                         <label for="txtBarcode">Barcode</label>
                                         <input type="text" class="form-control" id="txtBarcode" name="barcode">
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-3">
+                                    <div class="form-group">
+                                        <label for="txtAlert">Stock Alert Limit
+                                            <i class="gd-info-alt text-primary ml-1" data-toggle="tooltip"
+                                                data-placement="top"
+                                                title="Get alert when product stock reaches or goes below the specified quantity."></i>
+                                        </label>
+                                        <input type="number" class="form-control" id="txtAlert" name="alertlimit"
+                                            value="0">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    <div class="form-group">
+                                        <label for="txtAlert">Expire Date
+                                        </label>
+                                        <input type="date" class="form-control" id="txtExpdate" name="expiredate">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-3">
                                     <div class="form-group">
                                         <label for="fleImage">Image</label>
                                         <input type="file" class="form-control" id="fleImage" name="image">
@@ -101,17 +119,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-3">
-                                    <div class="form-group">
-                                        <label for="txtAlert">Stock Alert Limit
-                                            <i class="gd-info-alt text-primary ml-1" data-toggle="tooltip"
-                                                data-placement="top"
-                                                title="Get alert when product stock reaches or goes below the specified quantity."></i>
-                                        </label>
-                                        <input type="number" class="form-control" id="txtAlert" name="alertlimit"
-                                            value="0">
-                                    </div>
-                                </div>
+
                                 <div class="col-12 col-md-3">
                                     <div class="form-group">
                                         <label for="txtYoutube">Youtube Link</label>

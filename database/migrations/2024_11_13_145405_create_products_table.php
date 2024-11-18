@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('barcode')->nullable();
             $table->string('sku')->nullable();
+            $table->date('expiredate')->nullable();
             $table->string('image')->nullable();
             $table->integer('alertlimit')->nullable();
             $table->text('youtubelink')->nullable();

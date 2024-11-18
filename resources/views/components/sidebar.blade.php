@@ -106,6 +106,9 @@
                 <li class="side-nav-menu-item {{ $pagetitle == 'Gift Vouchers' ? 'active' : '' }}">
                     <a class="side-nav-menu-link" href="{{ route('settings') }}">Gift Vouchers</a>
                 </li>
+                <li class="side-nav-menu-item {{ $pagetitle == 'Expenses Settings' ? 'active' : '' }}">
+                    <a class="side-nav-menu-link" href="{{ route('settings') }}">Expenses Settings</a>
+                </li>
             </ul>
         </li>
     </ul>

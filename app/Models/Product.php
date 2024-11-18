@@ -13,6 +13,7 @@ class Product extends Model
         'description',
         'barcode',
         'sku',
+        'expiredate',
         'image',
         'alertlimit',
         'youtubelink',
