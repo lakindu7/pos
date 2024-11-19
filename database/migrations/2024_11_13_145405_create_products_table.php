@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('tags')->nullable();
             $table->string('sellingtype');
             $table->integer('status')->default(1)->comment('0->disabled,1->active,2->deleted');
+            $table->integer('salescount')->default(0);
             $table->integer('isFeatured')->default(0)->comment('0->no,1->yes');
             $table->integer('category_id')->nullable();
             $table->integer('subcategory_id')->nullable();

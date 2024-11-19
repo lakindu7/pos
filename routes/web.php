@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChildCategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\Pos\PosController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RewardSettingController;
@@ -23,6 +24,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+// Route::get('/apidata', [ProductController::class, 'getapi']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -144,6 +147,10 @@ Route::middleware('auth')->group(function () {
             Route::post('/settings/rewards/update', 'update')->name('rewards.update');
             Route::post('/update-toggle-status',  'updateToggleStatus');
         });
+    });
+
+    Route::prefix('pos')->group(function () {
+        Route::get('/', [PosController::class, 'index'])->name('pos');
     });
 });
 

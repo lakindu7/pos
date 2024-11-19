@@ -1,13 +1,12 @@
-/* Custom toggle switch styles */
 .custom-control-input:checked ~ .custom-control-label::before {
     background-color: #007bff;
     border-color: #007bff;
 }
 
 .custom-control-label::before {
-    width: 50px; /* Increased width for a bigger switch */
-    height: 26px; /* Increased height for a bigger switch */
-    border-radius: 13px; /* Half the height for rounded ends */
+    width: 50px;
+    height: 26px;
+    border-radius: 13px;
     background-color: #ddd;
     transition: all 0.3s ease-in-out;
 }
@@ -15,7 +14,7 @@
 .custom-control-label::after {
     top: 3px;
     left: 3px;
-    width: 20px; /* Larger toggle button */
+    width: 20px;
     height: 25px;
     border-radius: 50%;
     background-color: white;
@@ -23,16 +22,50 @@
 }
 
 .custom-control-input:checked ~ .custom-control-label::after {
-    transform: translateX(24px); /* Adjust translation for larger switch */
+    transform: translateX(24px);
 }
 
-/* Align label to the left of the switch */
 .switch-wrapper {
     display: flex;
     align-items: center;
 }
 
 .switch-wrapper .switch-label {
-    margin-right: 10px; /* Spacing between label and switch */
-    font-size: 1.2rem; /* Make label larger */
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+.custom-modal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 0;
+    width: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #000;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-content .close:hover {
+    color: red;
 }

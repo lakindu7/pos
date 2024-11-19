@@ -15,6 +15,7 @@ use App\Models\Childcategory;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 
 class ProductController extends Controller
 {
@@ -27,9 +28,10 @@ class ProductController extends Controller
                 'childcategory',
                 'brand',
                 'user'
-            )->where('status', 1)->orderBy('id', 'desc');
+            )->where('status', 1)->orderBy('id', 'asc');
 
             return DataTables::of($products)
+
                 ->addIndexColumn()
                 ->addColumn('category', fn($product) => $product->category->name ?? '')
                 ->addColumn('subcategory', fn($product) => $product->subcategory->name ?? '')
@@ -242,5 +244,28 @@ class ProductController extends Controller
 
         Stock::where('product_id', $id)->update(['status' => 0]);
         return redirect()->route('products')->with('success', 'Product deleted successfully.');
+    }
+    public function getapi()
+    {
+        $response = Http::get('http://localhost:8001/api/products');
+        $data = $response->json();
+        if (is_array($data)) {
+            foreach ($data as $item) {
+                DB::table('products')->insert([
+                    'name' => $item['productnameenglish'], // Replace with actual keys from the API response
+                    'name_si' => $item['productnamesinhala'],
+                    'slug' => $this->createUniqueSlug($item['productnameenglish']),
+                    'sku' => $this->generateSKU($item['productnameenglish'], 'IMPORTED'),
+                    'sellingtype' => $item['type'] === 'Kg' ? 'Grams' : 'Pieces',
+                    'user_id' => 1,
+                    'section_id' => 1,
+                    'created_at' => now(), // Add timestamps if needed
+                    'updated_at' => now(),
+                ]);
+            }
+            echo "Data inserted successfully!";
+        } else {
+            echo "The API response is not an array.";
+        }
     }
 }

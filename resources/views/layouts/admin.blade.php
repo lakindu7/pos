@@ -17,6 +17,12 @@
     @include('components.header')
 
     <main class="main">
+        <div id="myModal" class="custom-modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                @yield('modal-content')
+            </div>
+        </div>
         @include('components.sidebar')
         <div class="content">
             <div class="py-4 px-3 px-md-4">
