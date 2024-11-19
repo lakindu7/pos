@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('dob')->nullable();
             $table->double('points')->default(0);
             $table->double('creditlimit')->default(0);
+            $table->string('outstandingbalance')->default(0);
             $table->integer('user_id')->nullable();
             $table->integer('status')->default(1)->comment('0->disabled,1->active,2->deleted');
             $table->timestamps();

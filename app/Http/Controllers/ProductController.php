@@ -245,27 +245,48 @@ class ProductController extends Controller
         Stock::where('product_id', $id)->update(['status' => 0]);
         return redirect()->route('products')->with('success', 'Product deleted successfully.');
     }
-    public function getapi()
+    // public function getapi()
+    // {
+    //     $response = Http::get('http://localhost:8001/api/products');
+    //     $data = $response->json();
+    //     if (is_array($data)) {
+    //         foreach ($data as $item) {
+    //             DB::table('products')->insert([
+    //                 'name' => $item['productnameenglish'], // Replace with actual keys from the API response
+    //                 'name_si' => $item['productnamesinhala'],
+    //                 'slug' => $this->createUniqueSlug($item['productnameenglish']),
+    //                 'sku' => $this->generateSKU($item['productnameenglish'], 'IMPORTED'),
+    //                 'sellingtype' => $item['type'] === 'Kg' ? 'Grams' : 'Pieces',
+    //                 'user_id' => 1,
+    //                 'section_id' => 1,
+    //                 'created_at' => now(), // Add timestamps if needed
+    //                 'updated_at' => now(),
+    //             ]);
+    //         }
+    //         echo "Data inserted successfully!";
+    //     } else {
+    //         echo "The API response is not an array.";
+    //     }
+    // }
+
+    public function autocomplete(Request $request)
     {
-        $response = Http::get('http://localhost:8001/api/products');
-        $data = $response->json();
-        if (is_array($data)) {
-            foreach ($data as $item) {
-                DB::table('products')->insert([
-                    'name' => $item['productnameenglish'], // Replace with actual keys from the API response
-                    'name_si' => $item['productnamesinhala'],
-                    'slug' => $this->createUniqueSlug($item['productnameenglish']),
-                    'sku' => $this->generateSKU($item['productnameenglish'], 'IMPORTED'),
-                    'sellingtype' => $item['type'] === 'Kg' ? 'Grams' : 'Pieces',
-                    'user_id' => 1,
-                    'section_id' => 1,
-                    'created_at' => now(), // Add timestamps if needed
-                    'updated_at' => now(),
-                ]);
-            }
-            echo "Data inserted successfully!";
-        } else {
-            echo "The API response is not an array.";
+        $term = $request->get('term');
+        $products = Product::where('name', 'LIKE', "%{$term}%")
+            ->orWhere('sku', 'LIKE', "%{$term}%")
+            ->take(10)
+            ->get();
+
+        $data = [];
+        foreach ($products as $product) {
+            $data[] = [
+                'label' => "{$product->name} ({$product->name_si})",
+                'value' => $product->name,
+                'id' => $product->id,
+
+            ];
         }
+
+        return response()->json($data);
     }
 }

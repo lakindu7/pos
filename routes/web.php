@@ -4,6 +4,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChildCategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\Pos\PosController;
 use App\Http\Controllers\ProductController;
@@ -21,9 +22,7 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 // Route::get('/apidata', [ProductController::class, 'getapi']);
 
@@ -33,6 +32,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::middleware(('role:superadmin|admin'))->group(function () {
+        Route::controller(DashboardController::class)->group(function () {
+            Route::get('/dashboard', 'index')->name('dashboard');
+        });
+
         Route::controller(UserController::class)->group(function () {
             Route::get('/users', 'index')->name('users');
             Route::get('/users/create', 'create')->name('users.create');
@@ -98,6 +101,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/products/delete/{id}', 'destroy')->name('products.destroy');
             Route::get('/get-subcategories/{categoryId}', 'getSubcategories');
             Route::get('/get-childcategories/{subcategoryId}', 'getChildCategories');
+            Route::get('/autocomplete-products', 'autocomplete');
         });
 
         Route::controller(StockController::class)->group(function () {
@@ -108,6 +112,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/stocks/{id}', 'edit')->name('stocks.edit');
             Route::post('/stocks/{id}', 'update')->name('stocks.update');
             Route::post('/stocks/delete/{id}', 'destroy')->name('stocks.destroy');
+            Route::get('/getstocks/{id}', 'getStock')->name('stocks.getStock');
         });
 
         Route::controller(CustomerController::class)->group(function () {
@@ -130,11 +135,8 @@ Route::middleware('auth')->group(function () {
 
         Route::controller(InvoiceController::class)->group(function () {
             Route::get('/invoices', 'index')->name('invoices');
-            Route::get('/invoices/create', 'create')->name('invoices.create');
             Route::post('/invoices/store', 'store')->name('invoices.store');
-            Route::get('/invoices/{id}', 'edit')->name('invoices.edit');
-            Route::post('/invoices/{id}', 'update')->name('invoices.update');
-            Route::post('/invoices/delete/{id}', 'destroy')->name('invoices.destroy');
+            Route::get('/invoices/print/{id}', 'print')->name('invoices.print');
         });
 
         Route::controller(SettingsController::class)->group(function () {

@@ -1,8 +1,8 @@
 <aside id="sidebar" class="js-custom-scroll side-nav">
     <ul id="sideNav" class="side-nav-menu side-nav-menu-top-level mb-0">
         <li class="sidebar-heading h6">Navigation</li>
-        <li class="side-nav-menu-item ">
-            <a class="side-nav-menu-link media align-items-center" href="/">
+        <li class="side-nav-menu-item  {{ $pagetitle == 'Dashboard' ? 'active' : '' }}">
+            <a class="side-nav-menu-link media align-items-center" href="{{ route('dashboard') }}">
                 <span class="side-nav-menu-icon d-flex mr-3">
                     <i class="gd-dashboard"></i>
                 </span>

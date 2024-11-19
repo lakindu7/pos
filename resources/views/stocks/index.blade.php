@@ -88,7 +88,8 @@
                     },
                     {
                         data: 'supplier',
-                        name: 'supplier.name'
+                        name: 'supplier.name',
+                        searchable: false
                     },
                     {
                         data: 'created_by',

@@ -22,7 +22,7 @@ class StockController extends Controller
                 'childcategory',
                 'brand',
                 'user'
-            )->where('status', 1)->orderBy('id', 'desc');
+            )->where('status', 1)->orderBy('id', 'asc');
 
             return DataTables::of($products)
                 ->addIndexColumn()
@@ -30,7 +30,7 @@ class StockController extends Controller
                 ->addColumn('subcategory', fn($product) => $product->subcategory->name ?? '')
                 ->addColumn('childcategory', fn($product) => $product->childcategory->name ?? '')
                 ->addColumn('brand', fn($product) => $product->brand->name ?? '')
-                ->addColumn('supplier', fn($product) => $product->supplier->name ?? '')
+                ->addColumn('supplier', fn($product) => $product->supplier->name ?? 'NA')
                 ->addColumn('created_by', fn($product) => $product->user->name ?? '')
                 ->addColumn('created_date', fn($product) => $product->created_at->format('F d, Y'))
                 ->addColumn('action', function ($product) {
@@ -174,5 +174,26 @@ class StockController extends Controller
         $stock->status = 0;
         $stock->save();
         return redirect()->route('products.view', $stock->product_id)->with('success', 'Stock deleted successfully.');
+    }
+
+    public function getStock($id)
+    {
+        $stock = Stock::with('product')
+            ->where('product_id', $id)
+            ->where('availablequantity', '>', 0)
+            ->where('status', 1)
+            ->get();
+
+        if ($stock) {
+            return response()->json([
+                'status' => 'success',
+                'stock' => $stock,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Product not found',
+            ], 404);
+        }
     }
 }

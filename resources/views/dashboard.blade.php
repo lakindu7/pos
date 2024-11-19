@@ -1,21 +1,24 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.admin', ['pagetitle' => 'Dashboard'])
+@section('content')
+    <div class="row">
+        <div class="col-12 mb-3 mb-md-4">
+            <div class="card h-100">
+                <div class="card-header d-flex">
+                    <h5 class="h6 font-weight-semi-bold text-uppercase mb-0">Dashboard</h5>
+                    <div class="ml-auto">
+                        <a href="" class="btn btn-primary btn-sm">Add New</a>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    @foreach (Auth::user()->getRoleNames() as $role)
-        <p>Role: {{ $role }}</p>
-    @endforeach
-</x-app-layout>
+@endsection

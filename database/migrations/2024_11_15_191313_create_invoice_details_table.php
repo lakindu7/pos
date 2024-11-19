@@ -16,10 +16,13 @@ return new class extends Migration
             $table->string('quantity');
             $table->string('itemtotal');
             $table->string('unitprice');
+            $table->string('buyingtotal');
+            $table->string('markettotal');
+            $table->string('marketprice');
             $table->string('buyingprice');
-            $table->string('marketingprice');
             $table->integer('product_id');
             $table->integer('invoice_id');
+            $table->integer('stock_id');
             $table->timestamps();
         });
     }

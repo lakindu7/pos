@@ -50,10 +50,6 @@
                                 placeholder="Customer Name">
                         </div>
                     </div>
-                    <input type="hidden" class="form-control" id="txtTelephone" name="telephone" readonly>
-                    <input type="hidden" id="customerId" name="customerid" readonly>
-                    <input type="hidden" id="txtEmail" name="email" readonly>
-                    <input type="hidden" id="txtDOB" name="dob" readonly>
                 </div>
                 <div class="row invoice-table pt-3">
                     <div class="col-12">
@@ -61,192 +57,14 @@
                             <thead>
                                 <tr>
                                     <th>Product</th>
+                                    <th>Unit Price</th>
                                     <th>Quantity</th>
                                     <th>Subtotal</th>
                                     <th>Delete</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Carrot</td>
-                                    <td>
-                                        <input type="number" value="1">
-                                    </td>
-                                    <td> 500</td>
-                                    <td>
-                                        <button class="btn btn-danger">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Carrot</td>
-                                    <td>
-                                        <input type="number" value="1">
-                                    </td>
-                                    <td> 500</td>
-                                    <td>
-                                        <button class="btn btn-danger">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Carrot</td>
-                                    <td>
-                                        <input type="number" value="1">
-                                    </td>
-                                    <td> 500</td>
-                                    <td>
-                                        <button class="btn btn-danger">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Carrot</td>
-                                    <td>
-                                        <input type="number" value="1">
-                                    </td>
-                                    <td> 500</td>
-                                    <td>
-                                        <button class="btn btn-danger">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Carrot</td>
-                                    <td>
-                                        <input type="number" value="1">
-                                    </td>
-                                    <td> 500</td>
-                                    <td>
-                                        <button class="btn btn-danger">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Carrot</td>
-                                    <td>
-                                        <input type="number" value="1">
-                                    </td>
-                                    <td> 500</td>
-                                    <td>
-                                        <button class="btn btn-danger">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Carrot</td>
-                                    <td>
-                                        <input type="number" value="1">
-                                    </td>
-                                    <td> 500</td>
-                                    <td>
-                                        <button class="btn btn-danger">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Carrot</td>
-                                    <td>
-                                        <input type="number" value="1">
-                                    </td>
-                                    <td> 500</td>
-                                    <td>
-                                        <button class="btn btn-danger">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Carrot</td>
-                                    <td>
-                                        <input type="number" value="1">
-                                    </td>
-                                    <td> 500</td>
-                                    <td>
-                                        <button class="btn btn-danger">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Carrot</td>
-                                    <td>
-                                        <input type="number" value="1">
-                                    </td>
-                                    <td> 500</td>
-                                    <td>
-                                        <button class="btn btn-danger">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Carrot</td>
-                                    <td>
-                                        <input type="number" value="1">
-                                    </td>
-                                    <td> 500</td>
-                                    <td>
-                                        <button class="btn btn-danger">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Carrot</td>
-                                    <td>
-                                        <input type="number" value="1">
-                                    </td>
-                                    <td> 500</td>
-                                    <td>
-                                        <button class="btn btn-danger">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Carrot</td>
-                                    <td>
-                                        <input type="number" value="1">
-                                    </td>
-                                    <td> 500</td>
-                                    <td>
-                                        <button class="btn btn-danger">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Carrot</td>
-                                    <td>
-                                        <input type="number" value="1">
-                                    </td>
-                                    <td> 500</td>
-                                    <td>
-                                        <button class="btn btn-danger">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Papadam</td>
-                                    <td>
-                                        <input type="number" value="1">
-                                    </td>
-                                    <td> 500</td>
-                                    <td>
-                                        <button class="btn btn-danger">
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                            <tbody id="tblBody">
+
                             </tbody>
                         </table>
                     </div>
@@ -256,7 +74,8 @@
                 <div class="row pt-4">
                     @foreach ($products as $key => $product)
                         <div class="col-12 col-md-3 text-center pb-3">
-                            <div class="card pos-card d-flex justify-content-center align-items-center">
+                            <div class="card pos-card d-flex justify-content-center align-items-center"
+                                onclick="getStock({{ $product->id }})">
                                 <div class="row">
                                     <div class="col-12">
                                         <img src="{{ asset('uploads/products/1/680b5fbb-eca8-4fda-ab02-bd93ee7073d5.jpg') }}"
@@ -277,18 +96,19 @@
                     <div class="col-12 text-center">
                         <div class="card p-2">
                             <h5>Total Payable:</h5>
-                            <h5>LKR 5000</h5>
-                            <p>No. of Items: <span id="itemcount">10</span></p>
+                            <h5>LKR <span id="spnGTotal">0</span> </h5>
+                            <p>No. of Items: <span id="spnTotalItems">0</span></p>
                         </div>
                     </div>
-                    <div class="col-12 text-center pt-2" hidden>
+                    <div class="col-12 text-center pt-2" id="credit-section" hidden>
                         <div class="card credit-card p-2">
                             <p>This Customer has outstanging payment of <span id="itemcount"> <b>LKR 2000</b></span></p>
                         </div>
                     </div>
                     <div class="col-12 pt-2 ">
                         <div class="card cash-card p-2">
-                            <form action="goofl">
+                            <form action="{{ route('invoices.store') }}" id="frmInvoice" method="POST">
+                                @csrf
                                 <div class="row">
                                     <div class="col-12">
                                         <p><b>Cash Payment</b></p>
@@ -296,15 +116,28 @@
                                 </div>
                                 <div class="row pt-2">
                                     <div class="col-12">
-                                        <input type="number" id="txtCashPayment" class="form-control"
+                                        <input type="number" name="payment" id="txtCashPayment" class="form-control"
                                             placeholder="Payment" required>
                                     </div>
                                 </div>
                                 <div class="row pt-2">
                                     <div class="col-12">
-                                        <p>Balance: <b>LKR 2500</b></p>
+                                        <p>Balance: <b>LKR <span id="spnBalance">0</span></b></p>
+                                        <input type="hidden" name="balance" id="txtBalance">
                                     </div>
                                 </div>
+                                <textarea name="invoicedetails" id="txtInvoicedetails" cols="30" rows="10" readonly hidden> </textarea>
+                                <input type="hidden" class="form-control" id="txtCusName" name="name" readonly>
+                                <input type="hidden" class="form-control" id="txtFulltotal" name="amount" readonly>
+                                <input type="hidden" class="form-control" id="txtMarketTotal" name="markettotal"
+                                    readonly>
+                                <input type="hidden" class="form-control" id="txtBuyingTotal" name="buyingtotal"
+                                    readonly>
+                                <input type="hidden" class="form-control" id="txtTelephone" name="telephone" readonly>
+                                <input type="hidden" id="customerId" name="customer_id" readonly>
+                                <input type="hidden" id="txtEmail" name="email" readonly>
+                                <input type="hidden" id="txtDOB" name="dob" readonly>
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" readonly>
                                 <div class="row pt-2">
                                     <div class="col-12 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -355,8 +188,6 @@
         </div>
     </div>
 
-
-    <!-- Modal -->
     <div class="modal fade" id="customerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="customerModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -392,7 +223,8 @@
                                     @foreach ($customers as $key => $customer)
                                         <tr data-id="{{ $customer->id }}" data-telephone="{{ $customer->telephone }}"
                                             data-name="{{ $customer->name }}" data-email="{{ $customer->email }}"
-                                            data-dob="{{ $customer->dob }}">
+                                            data-dob="{{ $customer->dob }}"
+                                            data-outstanding="{{ $customer->outstandingbalance }}">
                                             <td class="py-3">{{ $key + 1 }}</td>
                                             <td class="py-3">{{ $customer->name }}</td>
                                             <td class="py-3">{{ $customer->telephone }}</td>
@@ -466,6 +298,20 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="stockModal" tabindex="-1" aria-labelledby="stockModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="stockModalLabel">Stock Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="stockCards" class="row g-3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 <style>
     .table-hover tbody tr:hover {
@@ -481,6 +327,31 @@
 @push('js')
     <script>
         $(document).ready(function() {
+            $('#txtProduct').autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: '/autocomplete-products',
+                        data: {
+                            term: request.term
+                        },
+                        success: function(data) {
+                            response(data);
+                        }
+                    });
+                },
+                minLength: 2,
+                select: function(event, ui) {
+                    getStock(ui.item.id);
+                    $('#txtProduct').val("");
+                    return false;
+                }
+            }).autocomplete('instance')._renderItem = function(ul, item) {
+                return $('<li>')
+                    .append(`<div>${item.label}</div>`)
+                    .appendTo(ul);
+            };
+
+
             let selectedRow = null;
             $('.dataTable tbody').on('click', 'tr', function() {
                 if (selectedRow) {
@@ -497,14 +368,23 @@
                     const customerTelephone = selectedRow.data('telephone');
                     const customerEmail = selectedRow.data('email');
                     const customerDOB = selectedRow.data('dob');
+                    const outstanding = selectedRow.data('outstanding');
 
                     $('#customerId').val(customerId);
                     $('#txtName').val(customerName);
+                    $('#txtCusName').val(customerName);
                     $('#txtTelephone').val(customerTelephone);
                     $('#txtEmail').val(customerEmail);
                     $('#txtDOB').val(customerDOB);
 
                     $('#customerModal').modal('hide');
+
+                    if (outstanding > 0) {
+                        $('#credit-section').removeAttr('hidden');
+                        $('#warningAudio').get(0).play();
+                    } else {
+                        $('#credit-section').attr('hidden', 'hidden');
+                    }
                 } else {
                     alert('Please select a customer.');
                 }
@@ -540,5 +420,287 @@
 
             });
         });
+
+        $('#txtCashPayment').on('keyup', function() {
+            calculateBalance();
+        })
+
+        let isSubmitting = false;
+
+        $('#frmInvoice').on('submit', function(event) {
+            if (!isSubmitting) {
+                event.preventDefault();
+                const jsonData = getTableData();
+                $('#txtInvoicedetails').val(jsonData);
+                isSubmitting = true;
+                $(this).submit();
+            }
+        });
+
+        function getStock(productId) {
+            $.ajax({
+                url: `/getstocks/${productId}`,
+                method: 'GET',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        if (response.stock.length > 1) {
+                            $('#stockCards').empty();
+                            response.stock.forEach(function(stockItem) {
+                                let quantity = stockItem.availablequantity;
+                                let unit = "g";
+                                if (stockItem.product && stockItem.product.sellingtype === "Grams" &&
+                                    quantity > 1000) {
+                                    quantity = quantity / 1000;
+                                    unit = "kg";
+                                }
+
+                                const card = `
+                            <div class="col-md-4">
+                                <div class="card stock-card" data-productname ="${stockItem.product.name_si}"  data-stock-id="${stockItem.id}" data-product-id="${stockItem.product.id}"
+                                data-product-price="${stockItem.price}" data-available-quantity="${stockItem.availablequantity}"
+                                data-marketprice="${stockItem.marketprice}" data-buyingprice="${stockItem.buyingprice}" data-sellingtype="${stockItem.product.sellingtype}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${stockItem.product.name_si} (${stockItem.product.name})</h5>
+                                        <p class="card-text">Quantity: ${quantity}${stockItem.product.sellingtype === "Grams" ? unit : "Pc"}</p>
+                                        <p class="card-text">Price: LKR ${stockItem.price}</p>
+                                        <p class="card-text">Market Price: LKR ${stockItem.marketprice}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                                $('#stockCards').append(card);
+                            });
+
+                            $('#stockModal').modal('show');
+
+                            $('.stock-card').on('click', function() {
+                                $('.stock-card').removeClass('selected');
+                                $(this).addClass('selected');
+
+                                const productName = $(this).data('productname');
+                                const productId = $(this).data('product-id');
+                                const productPrice = $(this).data('product-price');
+                                const availableQuantity = $(this).data('available-quantity');
+                                const stockid = $(this).data('stock-id');
+                                const sellingtype = $(this).data('sellingtype');
+                                const marketprice = $(this).data('marketprice');
+                                const buyingprice = $(this).data('buyingprice');
+
+                                appendTable(productName, productId, productPrice, availableQuantity,
+                                    stockid, sellingtype, marketprice, buyingprice);
+                                $('#stockModal').modal('hide');
+                                $(`#quantity-${productId}`).focus();
+                            });
+                        } else if (response.stock.length != 0) {
+                            const productName = response.stock[0].product.name_si;
+                            const productId = response.stock[0].product.id;
+                            const sellingtype = response.stock[0].product.sellingtype;
+                            const productPrice = response.stock[0].price;
+                            const stockId = response.stock[0].id;
+                            const marketprice = response.stock[0].marketprice;
+                            const buyingprice = response.stock[0].buyingprice;
+                            const availableQuantity = parseInt(response.stock[0].availablequantity);
+                            appendTable(productName, productId, productPrice, availableQuantity, stockId,
+                                sellingtype, marketprice, buyingprice);
+                            $(`#quantity-${productId}`).focus();
+
+                        } else {
+                            alert('Not Enough Stock Available');
+                        }
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function(xhr) {
+                    alert('An error occurred: ' + xhr.status + ' ' + xhr.statusText);
+                }
+            });
+        }
+
+        function highlightMC(productId) {
+            $(`#quantity-${productId}`).select();
+        }
+
+
+
+        function removeProduct(productId) {
+            const isConfirmed = confirm("Are you sure you want to remove this product?");
+            if (isConfirmed) {
+                $(`#row-${productId}`).remove();
+                calculateGrandTotal();
+            }
+        }
+
+        function appendTable(productName, productId, productPrice, availableQuantity, stockid, sellingtype, marketprice,
+            buyingprice) {
+            let productExists = false;
+            $('#tblBody tr').each(function() {
+                const existingProductId = $(this).data('product-id');
+                const existingStockId = $(this).data('stockid');
+                if (existingProductId == productId && existingStockId == stockid) {
+                    productExists = true;
+                    return false;
+                }
+            });
+
+            if (productExists) {
+                alert(`${productName} is already added to the table.`);
+                return;
+            }
+
+            let markup = `
+                        <tr data-product-id="${productId}" id="row-${productId}" data-stockid="${stockid}", data-marketprice="${marketprice}",
+                        data-buyingprice="${buyingprice}">
+                            <td>${productName}</td>
+                            <td>
+                                <input type="number" value="${productPrice}" min="1" id="price-${productId}" class="price" readonly>
+                            </td>
+                            <td  hidden>
+                                <input type="number" value="${marketprice}" min="1" id="marketprice-${productId}" class="marketprice" readonly>
+                            </td>
+                            <td  hidden>
+                                <input type="number" value="${buyingprice}" min="1" id="buyingprice-${productId}" class="buyingprice" readonly>
+                            </td>
+                            <td>
+                                <input type="number" value="1" min="1" id="quantity-${productId}" class="quantity" onfocus="highlightMC(${productId})">
+                            </td>
+                            <td>
+                                <input type="number" value="${productPrice}" min="1" id="subtotal-${productId}" class="subtotal" readonly>
+                            </td>
+                            <td hidden>
+                                <input type="number" value="${marketprice}" min="1" id="markettotal-${productId}" class="markettotal" readonly>
+                            </td>
+                            <td hidden>
+                                <input type="number" value="${buyingprice}" min="1" id="buyingtotal-${productId}" class="buyingtotal" readonly>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" onclick="removeProduct(${productId})">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+
+            $('#tblBody').append(markup);
+
+            calculateGrandTotal();
+
+            $(`#quantity-${productId}`).on('input', function() {
+                let quantity = parseInt($(this).val());
+
+                if (quantity > availableQuantity) {
+                    alert(
+                        `The quantity cannot exceed the available stock of ${availableQuantity}.`
+                    );
+                    $(this).val(availableQuantity);
+                    quantity = availableQuantity;
+                }
+                const price = parseFloat($(`#price-${productId}`).val());
+                const marketprice = parseFloat($(`#marketprice-${productId}`).val());
+                const buyingprice = parseFloat($(`#buyingprice-${productId}`).val());
+                calculateTotal(productId, price, quantity, sellingtype, marketprice, buyingprice);
+            });
+        }
+
+        function calculateTotal(productId, price, quantity, sellingtype, marketprice, buyingprice) {
+
+            let subtotal = 0;
+            let markettotal = 0;
+            let buyingtotal = 0;
+
+            if (sellingtype === 'Grams') {
+                subtotal = (quantity * price) / 1000;
+                markettotal = (quantity * marketprice) / 1000;
+                buyingtotal = (quantity * buyingprice) / 1000;
+                console.log(markettotal);
+                console.log(buyingtotal);
+            } else {
+                subtotal = quantity * price;
+                markettotal = quantity * marketprice;
+                buyingtotal = quantity * buyingprice;
+            }
+
+
+            $(`#subtotal-${productId}`).val(subtotal.toFixed(
+                2));
+            $(`#markettotal-${productId}`).val(markettotal.toFixed(
+                2));
+            $(`#buyingtotal-${productId}`).val(buyingtotal.toFixed(
+                2));
+            calculateGrandTotal();
+        }
+
+        function calculateGrandTotal() {
+            let grandTotal = 0;
+            let totalItems = 0;
+            let grandMarkettotal = 0;
+            let grandBuyingtotal = 0;
+
+            $('#tblBody .subtotal').each(function() {
+                const subtotal = parseFloat($(this).val()) || 0;
+                grandTotal += subtotal;
+                totalItems += 1;
+            });
+
+            $('#tblBody .markettotal').each(function() {
+                const markettotal = parseFloat($(this).val()) || 0;
+                grandMarkettotal += markettotal;
+
+            });
+
+            $('#tblBody .buyingtotal').each(function() {
+                const buyingtotal = parseFloat($(this).val()) || 0;
+                grandBuyingtotal += buyingtotal;
+
+            });
+
+            $('#spnGTotal').html(`${grandTotal.toFixed(2)}`);
+            $('#txtFulltotal').val(`${grandTotal.toFixed(2)}`);
+            $('#txtMarketTotal').val(`${grandMarkettotal.toFixed(2)}`);
+            $('#txtBuyingTotal').val(`${grandBuyingtotal.toFixed(2)}`);
+            $('#spnTotalItems').html(`${totalItems}`);
+            calculateBalance();
+        }
+
+        function calculateBalance() {
+            let payment = $('#txtCashPayment').val();
+            let total = $('#spnGTotal').html();
+            let balance = payment - total;
+            $('#spnBalance').html(`${balance.toFixed(2)}`);
+            $('#txtBalance').val(`${balance.toFixed(2)}`);
+        }
+
+        function getTableData() {
+            const rows = document.querySelectorAll('tr[data-product-id]');
+            const data = [];
+
+            rows.forEach(row => {
+                const productId = row.getAttribute('data-product-id');
+                const stockId = row.getAttribute('data-stockid');
+                const marketprice = row.getAttribute('data-marketprice');
+                const buyingprice = row.getAttribute('data-buyingprice');
+                const productName = row.querySelector('td:nth-child(1)').innerText;
+                const productPrice = row.querySelector(`#price-${productId}`).value;
+                const quantity = row.querySelector(`#quantity-${productId}`).value;
+                const subtotal = row.querySelector(`#subtotal-${productId}`).value;
+                const markettotal = row.querySelector(`#markettotal-${productId}`).value;
+                const buyingtotal = row.querySelector(`#buyingtotal-${productId}`).value;
+
+                data.push({
+                    productId,
+                    stockId,
+                    productName,
+                    productPrice: parseFloat(productPrice),
+                    quantity: parseInt(quantity, 10),
+                    subtotal: parseFloat(subtotal),
+                    markettotal: parseFloat(markettotal),
+                    buyingtotal: parseFloat(buyingtotal),
+                    marketprice: parseFloat(marketprice),
+                    buyingprice: parseFloat(buyingprice)
+                });
+            });
+
+            return JSON.stringify(data);
+        }
     </script>
 @endpush

@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('payment');
             $table->string('balance');
             $table->string('markettotal')->nullable();
-            $table->string('points')->nullable();;
-            $table->string('customer_id');
+            $table->string('buyingtotal')->nullable();
+            $table->string('points')->default(0);
+            $table->string('customer_id')->nullable();
             $table->string('user_id')->nullable();
             $table->timestamps();
         });
