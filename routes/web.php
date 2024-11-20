@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware(('role:superadmin|admin'))->group(function () {
         Route::controller(DashboardController::class)->group(function () {
             Route::get('/dashboard', 'index')->name('dashboard');
+            Route::get('/get-daily-amounts',  'getDailyAmounts');
         });
 
         Route::controller(UserController::class)->group(function () {

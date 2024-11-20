@@ -42,6 +42,7 @@
     <script src="https://cdn.tiny.cloud/1/{{ env('TINYMCE_API') }}/tinymce/7/tinymce.min.js" referrerpolicy="origin">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
         $(document).ready(function() {
