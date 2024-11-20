@@ -1,5 +1,6 @@
 body {
     max-height: 100vh;
+    overflow: hidden;
 }
 
 .btn {
@@ -9,6 +10,7 @@ body {
 .topbar {
     background-color: #dddddd;
     padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .form-control {
@@ -31,24 +33,38 @@ p {
 
     .products-area {
         background-color: #dddddd;
+        height: calc(100vh - 203px);
         .pos-card {
-            min-height: calc((100vh - 195px) / 4);
-            max-height: calc((100vh - 195px) / 4);
+            min-height: calc((100vh - 315px) / 3);
+            max-height: calc((100vh - 315px) / 3);
             padding: 15px 10px;
             cursor: pointer;
             &:hover {
                 background-color: #ffe6e6;
             }
             p {
-                font-size: 13px;
+                font-size: 14px;
                 margin-block-end: 0 !important;
                 margin-bottom: 0 !important;
             }
         }
     }
     .invoice-table {
-        height: calc(100vh - 215px);
+        height: calc(100vh - 315px);
         overflow-y: auto;
+        background-color: #dddddd;
+        td {
+            input {
+                width: 75% !important;
+            }
+        }
+    }
+    .payable-card {
+        background-color: #001f3e;
+        color: #ffffff;
+        h6 {
+            margin-bottom: 0 !important;
+        }
     }
 }
 
@@ -58,10 +74,29 @@ p {
 
 .other-card {
     background-color: #afecff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.transcation-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    background-color: #ff3ba7;
+    cursor: pointer;
+    &:hover {
+        background-color: #ff67ba;
+    }
 }
 
 .credit-card {
     animation: blinkRed 0.6s infinite; /* Apply the blinkRed animation */
+}
+
+.bottom-panel {
+    min-height: 88px;
 }
 
 @keyframes blinkRed {
@@ -79,14 +114,14 @@ p {
 .footer {
     text-align: center;
     background-color: antiquewhite;
-    min-height: 43px;
+    min-height: 34px;
     font-size: 12px;
     padding-top: 6px;
 }
 
 input[readonly] {
-    background-color: #f5f5f5; /* Light gray background */
-    border: 1px solid #ccc; /* Gray border */
-    color: #000000; /* Lighter text color */
-    cursor: not-allowed; /* Show "not allowed" cursor */
+    background-color: transparent;
+    color: #000000;
+    cursor: not-allowed;
+    border: none;
 }

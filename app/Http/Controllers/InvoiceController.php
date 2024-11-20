@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Stock;
 use App\Models\Invoice;
+use App\Models\Setting;
+use App\Models\Customer;
+use Illuminate\Http\Request;
 use App\Models\InvoiceDetail;
 use App\Models\RewardSetting;
-use App\Models\Setting;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
@@ -74,6 +75,10 @@ class InvoiceController extends Controller
             $invoice_detail->invoice_id = $invoice->id;
             $invoice_detail->stock_id = $detail->stockId;
             $invoice_detail->save();
+
+            $stock = Stock::find($detail->stockId);
+            $stock->availablequantity -= $invoice_detail->quantity;
+            $stock->save();
         }
 
         return redirect()->route('invoices.print', $invoice->id);
@@ -91,8 +96,7 @@ class InvoiceController extends Controller
 
             $nextNumber = $latestInvoice ? (int) substr($latestInvoice->invoiceid, -3) + 1 : 1;
             $nextNumberFormatted = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
-            $invoiceId = 'INV-' . $yearMonth . '-' . $nextNumberFormatted;
-
+            $invoiceId = 'INV' . $yearMonth . '' . $nextNumberFormatted;
             return $invoiceId;
         });
     }

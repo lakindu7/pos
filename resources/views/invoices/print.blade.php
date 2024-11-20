@@ -69,26 +69,39 @@
                 <table width="100%" style="font-size:12px">
                     <tr>
                         <th>Total</th>
-                        <td style="text-align: right; font-weight:bold">{{ $invoice->amount }}</td>
+                        <td style="text-align: right; font-weight:bold">{{ number_format($invoice->amount, 2) }}</td>
                     </tr>
+                    @if ($invoice->discounttype != null)
+                        <tr>
+                            <th>Discount</th>
+                            <td style="text-align: right; font-weight:bold">
+                                {{ number_format($invoice->discountamount, 2) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Amount</th>
+                            <td style="text-align: right; font-weight:bold">{{ number_format($invoice->payable, 2) }}
+                            </td>
+                        </tr>
+                    @endif
                     <tr>
                         <th>Payment</th>
                         <td style="text-align: right; font-weight:bold">{{ number_format($invoice->payment, 2) }}</td>
                     </tr>
                     <tr>
                         <th>Balance</th>
-                        <td style="text-align: right; font-weight:bold">{{ $invoice->balance }}</td>
+                        <td style="text-align: right; font-weight:bold">{{ number_format($invoice->balance, 2) }}</td>
                     </tr>
                 </table>
                 <hr>
             </div>
             <div class="col-12" style="text-align: center; ">
                 <h5 style="font-size:12px; font-weight:bold">ඔබට ලැබුණු ලාභය රුපියල්</h5>
-                <h5>{{ $invoice->markettotal - $invoice->amount }}</h5>
+                <h5>{{ $invoice->markettotal - $invoice->amount + $invoice->discountamount }}</h5>
             </div>
             <br>
             <div class="col-12" style="text-align: center; font-size:12px">
-                <p style="margin-top: 5px;"><b> {{ $setting->greeting }}</b></p>
+                <p style="margin-top: 5px;"><b> {{ $setting->greetingmessage }}</b></p>
 
             </div>
             <div class="col-12" style="text-align: center; font-size:11px">

@@ -25,7 +25,6 @@
                                                 <th>Brand</th>
                                                 <th>Supplier</th>
                                                 <th>Created By</th>
-                                                <th>Created Date</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -94,10 +93,6 @@
                     {
                         data: 'created_by',
                         name: 'user.name'
-                    },
-                    {
-                        data: 'created_date',
-                        name: 'created_at'
                     },
                     {
                         data: 'action',

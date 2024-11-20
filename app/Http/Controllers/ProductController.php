@@ -39,7 +39,6 @@ class ProductController extends Controller
                 ->addColumn('brand', fn($product) => $product->brand->name ?? '')
                 ->addColumn('supplier', fn($product) => $product->supplier->name ?? '')
                 ->addColumn('created_by', fn($product) => $product->user->name ?? '')
-                ->addColumn('created_date', fn($product) => $product->created_at->format('F d, Y'))
                 ->addColumn('action', function ($product) {
                     return '<a href="' . route('products.view', $product->id) . '" class="link-dark mr-2">
                             <i class="gd-eye icon-text"></i>
@@ -288,5 +287,23 @@ class ProductController extends Controller
         }
 
         return response()->json($data);
+    }
+
+    public function getProductByBarcode(Request $request)
+    {
+        $barcode = $request->input('barcode');
+        $product = Product::where('barcode', $barcode)->first();
+
+        if ($product) {
+            return response()->json([
+                'success' => true,
+                'product_id' => $product->id,
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Product not found',
+            ]);
+        }
     }
 }

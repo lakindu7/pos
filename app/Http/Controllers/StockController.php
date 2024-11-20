@@ -32,7 +32,6 @@ class StockController extends Controller
                 ->addColumn('brand', fn($product) => $product->brand->name ?? '')
                 ->addColumn('supplier', fn($product) => $product->supplier->name ?? 'NA')
                 ->addColumn('created_by', fn($product) => $product->user->name ?? '')
-                ->addColumn('created_date', fn($product) => $product->created_at->format('F d, Y'))
                 ->addColumn('action', function ($product) {
                     return '<a href="' . route('stocks.create', $product->id) . '" class="link-dark mr-2">
                             <i class="gd-plus icon-text"></i>

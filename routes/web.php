@@ -102,6 +102,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/get-subcategories/{categoryId}', 'getSubcategories');
             Route::get('/get-childcategories/{subcategoryId}', 'getChildCategories');
             Route::get('/autocomplete-products', 'autocomplete');
+            Route::post('/get-product-id',  'getProductByBarcode');
         });
 
         Route::controller(StockController::class)->group(function () {

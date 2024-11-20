@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string('amount');
             $table->string('payment');
             $table->string('balance');
+            $table->string('discounttype')->nullable();;
+            $table->string('discount')->nullable();
+            $table->string('payable');
+            $table->string('discountamount')->nullable();;
             $table->string('markettotal')->nullable();
             $table->string('buyingtotal')->nullable();
             $table->string('points')->default(0);

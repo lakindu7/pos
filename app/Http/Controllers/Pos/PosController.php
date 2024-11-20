@@ -11,7 +11,7 @@ class PosController extends Controller
 {
     public function index()
     {
-        $products = Product::where('status', 1)->orderby('salescount', 'desc')->limit(16)->get();
+        $products = Product::where('status', 1)->orderby('salescount', 'desc')->limit(12)->get();
         $customers = Customer::where('status', 1)->get();
         return view('pos.index', compact('products', 'customers'));
     }
