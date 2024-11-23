@@ -5,6 +5,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChildCategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExpenseCategoryController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\Pos\PosController;
 use App\Http\Controllers\ProductController;
@@ -150,6 +152,24 @@ Route::middleware('auth')->group(function () {
             Route::get('/settings/rewards', 'index')->name('rewards');
             Route::post('/settings/rewards/update', 'update')->name('rewards.update');
             Route::post('/update-toggle-status',  'updateToggleStatus');
+        });
+
+        Route::controller(ExpenseController::class)->group(function () {
+            Route::get('/expenses', 'index')->name('expenses');
+            Route::get('/expenses/create', 'create')->name('expenses.create');
+            Route::post('/expenses/store', 'store')->name('expenses.store');
+            Route::get('/expenses/{id}', 'edit')->name('expenses.edit');
+            Route::post('/expenses/{id}', 'update')->name('expenses.update');
+            Route::post('/expenses/delete/{id}', 'destroy')->name('expenses.destroy');
+        });
+
+        Route::controller(ExpenseCategoryController::class)->group(function () {
+            Route::get('/expense-categories',  'index')->name('expensecategories');
+            Route::get('/expense-categories/create', 'create')->name('expensecategories.create');
+            Route::post('/expense-categories/store', 'store')->name('expensecategories.store');
+            Route::get('/expense-categories/{id}', 'edit')->name('expensecategories.edit');
+            Route::post('/expense-categories/{id}', 'update')->name('expensecategories.update');
+            Route::post('/expense-categories/delete/{id}', 'destroy')->name('expensecategories.destroy');
         });
     });
 

@@ -72,6 +72,30 @@
                 </li>
             </ul>
         </li>
+        <li
+            class="side-nav-menu-item side-nav-has-menu @isset($selectedlink)
+    {{ $selectedlink === 'Expenses' ? 'active  side-nav-opened' : '' }}
+@endisset">
+            <a class="side-nav-menu-link media align-items-center" href="#" data-target="#expenses">
+                <span class="side-nav-menu-icon d-flex mr-3">
+                    <i class="gd-receipt"></i>
+                </span>
+                <span class="side-nav-fadeout-on-closed media-body">Expenses</span>
+                <span class="side-nav-control-icon d-flex">
+                    <i class="gd-angle-right side-nav-fadeout-on-closed"></i>
+                </span>
+                <span class="side-nav__indicator side-nav-fadeout-on-closed"></span>
+            </a>
+            <ul id="expenses" class="side-nav-menu side-nav-menu-second-level mb-0"
+                @isset($selectedlink) @if ($selectedlink === 'Expenses') style="display: block;" @endif @endisset>
+                <li class="side-nav-menu-item {{ $pagetitle == 'Expenses' ? 'active' : '' }}">
+                    <a class="side-nav-menu-link" href="{{ route('expenses') }}">Expenses</a>
+                </li>
+                <li class="side-nav-menu-item {{ $pagetitle == 'Expense Categories' ? 'active' : '' }}">
+                    <a class="side-nav-menu-link" href="{{ route('expensecategories') }}">Expense Categories</a>
+                </li>
+            </ul>
+        </li>
         <li class="side-nav-menu-item {{ $pagetitle == 'User Management' ? 'active' : '' }}">
             <a class="side-nav-menu-link media align-items-center" href="{{ route('users') }}">
                 <span class="side-nav-menu-icon d-flex mr-3">
@@ -113,9 +137,6 @@
                 </li>
                 <li class="side-nav-menu-item {{ $pagetitle == 'Gift Vouchers' ? 'active' : '' }}">
                     <a class="side-nav-menu-link" href="{{ route('settings') }}">Gift Vouchers</a>
-                </li>
-                <li class="side-nav-menu-item {{ $pagetitle == 'Expenses Settings' ? 'active' : '' }}">
-                    <a class="side-nav-menu-link" href="{{ route('settings') }}">Expenses Settings</a>
                 </li>
             </ul>
         </li>
