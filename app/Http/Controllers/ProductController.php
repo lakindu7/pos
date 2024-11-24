@@ -28,7 +28,7 @@ class ProductController extends Controller
                 'childcategory',
                 'brand',
                 'user'
-            )->where('status', 1)->orderBy('id', 'asc');
+            )->where('products.status', 1)->orderBy('products.id', 'asc');
 
             return DataTables::of($products)
 

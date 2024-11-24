@@ -14,10 +14,16 @@
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <div class="card shadow">
-                                    <canvas id="dailyAreaChart"></canvas>
+                                    <canvas id="dailyTotalsChart"></canvas>
                                     <button id="refreshChartBtn" style="margin-top: 20px;"> <i id="refreshBtn"
                                             class="gd-reload icon-text align-middle"></i></button>
-
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="card shadow">
+                                    <canvas id="twoHourIntervalChart"></canvas>
+                                    <button id="refreshChartBtn" style="margin-top: 20px;"> <i id="refreshBtn"
+                                            class="gd-reload icon-text align-middle"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -43,68 +49,121 @@
 @push('js')
     <script>
         $(document).ready(function() {
-            fetchChartData();
+            // fetchChartData();
+            $.ajax({
+                url: "{{ route('invoices.chartData') }}",
+                method: "GET",
+                success: function(data) {
+                    const dailyCtx = $('#dailyTotalsChart')[0].getContext('2d');
+                    new Chart(dailyCtx, {
+                        type: 'line',
+                        data: {
+                            labels: data.dailyTotals.labels,
+                            datasets: [{
+                                label: 'Total Sale',
+                                data: data.dailyTotals.data,
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1,
+                                fill: true,
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                },
+                            }
+                        }
+                    });
+
+                    const intervalCtx = $('#twoHourIntervalChart')[0].getContext('2d');
+                    new Chart(intervalCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: data.twoHourIntervals.labels,
+                            datasets: [{
+                                label: 'Customers',
+                                data: data.twoHourIntervals.data,
+                                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1,
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                },
+                            }
+                        }
+                    });
+                },
+                error: function(error) {
+                    console.error("Error fetching chart data:", error);
+                }
+            });
         });
         let chart;
 
-        function fetchChartData() {
-            $('#refreshBtn').addClass('animation-spin');
-            $.get('/get-daily-amounts', function(chartData) {
-                chart.data.labels = chartData.labels;
-                chart.data.datasets[0].data = chartData.data;
-                chart.update();
-                $('#refreshBtn').removeClass('animation-spin');
-            });
-        }
+        // function fetchChartData() {
+        //     $('#refreshBtn').addClass('animation-spin');
+        //     $.get('/get-daily-amounts', function(chartData) {
+        //         chart.data.labels = chartData.labels;
+        //         chart.data.datasets[0].data = chartData.data;
+        //         chart.update();
+        //         $('#refreshBtn').removeClass('animation-spin');
+        //     });
+        // }
 
-        const ctx = document.getElementById('dailyAreaChart').getContext('2d');
-        chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'Total Sale (Last 30 Days)',
-                    data: [],
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0,
-                }],
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Daily Sale',
-                    },
-                },
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Date',
-                        },
-                    },
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Sale',
-                        },
-                    },
-                },
-            },
-        });
+        // const ctx = document.getElementById('dailyAreaChart').getContext('2d');
+        // chart = new Chart(ctx, {
+        //     type: 'line',
+        //     data: {
+        //         labels: [],
+        //         datasets: [{
+        //             label: 'Total Sale (Last 30 Days)',
+        //             data: [],
+        //             borderColor: 'rgba(75, 192, 192, 1)',
+        //             backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        //             borderWidth: 3,
+        //             fill: true,
+        //             tension: 0,
+        //         }],
+        //     },
+        //     options: {
+        //         responsive: true,
+        //         plugins: {
+        //             legend: {
+        //                 position: 'top',
+        //             },
+        //             title: {
+        //                 display: true,
+        //                 text: 'Daily Sale',
+        //             },
+        //         },
+        //         scales: {
+        //             x: {
+        //                 title: {
+        //                     display: true,
+        //                     text: 'Date',
+        //                 },
+        //             },
+        //             y: {
+        //                 beginAtZero: true,
+        //                 title: {
+        //                     display: true,
+        //                     text: 'Sale',
+        //                 },
+        //             },
+        //         },
+        //     },
+        // });
 
-        $('#refreshChartBtn').click(function() {
-            fetchChartData();
-        });
+        // $('#refreshChartBtn').click(function() {
+        //     fetchChartData();
+        // });
 
-        setInterval(fetchChartData, 600000);
+        // setInterval(fetchChartData, 600000);
     </script>
 @endpush

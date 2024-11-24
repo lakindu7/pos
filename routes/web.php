@@ -37,6 +37,8 @@ Route::middleware('auth')->group(function () {
         Route::controller(DashboardController::class)->group(function () {
             Route::get('/dashboard', 'index')->name('dashboard');
             Route::get('/get-daily-amounts',  'getDailyAmounts');
+            Route::get('/invoices/charts',  'showCombinedChart')->name('invoices.chartView');
+            Route::get('/invoices/charts/data', 'getChartData')->name('invoices.chartData');
         });
 
         Route::controller(UserController::class)->group(function () {

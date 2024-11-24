@@ -74,28 +74,39 @@
                     },
                     {
                         data: 'category',
-                        name: 'category.name'
+                        name: 'category.name',
+                        orderable: false,
+                        searchable: false
                     },
                     {
                         data: 'subcategory',
-                        name: 'subcategory.name'
+                        name: 'subcategory.name',
+                        orderable: false,
+                        searchable: false
                     },
                     {
                         data: 'childcategory',
-                        name: 'childcategory.name'
+                        name: 'childcategory.name',
+                        orderable: false,
+                        searchable: false
                     },
                     {
                         data: 'brand',
-                        name: 'brand.name'
+                        name: 'brand.name',
+                        orderable: false,
+                        searchable: false
                     },
                     {
                         data: 'supplier',
                         name: 'supplier.name',
+                        orderable: false,
                         searchable: false
                     },
                     {
                         data: 'created_by',
-                        name: 'user.name'
+                        name: 'user.name',
+                        orderable: false,
+                        searchable: false
                     },
                     {
                         data: 'action',
