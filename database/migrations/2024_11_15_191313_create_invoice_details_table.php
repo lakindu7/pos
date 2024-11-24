@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('product_id');
             $table->integer('invoice_id');
             $table->integer('stock_id');
+            $table->integer('status')->default(1)->comment('0->cancelled,1->completed,2->exchanged');
             $table->timestamps();
         });
     }

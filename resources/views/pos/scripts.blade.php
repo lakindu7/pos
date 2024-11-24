@@ -454,4 +454,39 @@
             $('#txtPayable').val(discountedTotal.toFixed(2));
         }
     }
+
+    $(function() {
+        $('#txtInvoiceid').autocomplete({
+            source: '/pos/invoice-ids',
+            minLength: 2,
+            select: function(event, ui) {
+                const selectedInvoiceId = ui.item.value;
+                $.ajax({
+                    url: '/pos/invoice-details',
+                    method: 'GET',
+                    data: {
+                        id: selectedInvoiceId
+                    },
+                    success: function(response) {
+                        $('#invoiceDetails').html(`
+                            <p><strong>Invoice ID:</strong> ${response.invoice_id}</p>
+                            <p><strong>Date:</strong> ${response.date}</p>
+                            <p><strong>Amount:</strong> ${response.amount}</p>
+                            <p><strong>Customer Name:</strong> ${response.customer_name}</p>
+                            <a href="/pos/cancel/${response.id}" class="btn btn-danger mt-3" onclick="return confirm('Are you sure you want to cancel?');">Cancel</a>
+                        `);
+
+                    },
+                    error: function(xhr) {
+                        $('#invoiceDetails').html(
+                            '<p class="text-danger">Invoice not found.</p>');
+                    }
+                });
+            }
+        });
+    });
+
+    $('#cancelModal').on('shown.bs.modal', function() {
+        $('#txtInvoiceid').focus();
+    });
 </script>

@@ -7,8 +7,8 @@
                     <div class="col-4">
                         <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#expenseModal"><i
                                 class="bi bi-cash-coin"></i> Add Expense</button>
-                        <button class="btn btn-primary btn-sm"><i class="bi bi-receipt-cutoff"></i> Sales
-                            Details</button>
+                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancelModal"><i
+                                class="bi bi-receipt-cutoff"></i> Cancel Invoice</button>
                         <button class="btn btn-info btn-sm"><i class="bi bi-arrow-left-right"></i> Exchange</button>
                     </div>
                     <div class="col-4 text-center">
@@ -172,7 +172,8 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-1">
-                    <div class="card transcation-card bottom-panel text-center">
+                    <div class="card transcation-card bottom-panel text-center" data-bs-toggle="modal"
+                        data-bs-target="#trasactionModal">
                         <p>Recent Transactions </p>
                     </div>
                 </div>
@@ -194,6 +195,8 @@
     @include('pos.components.stock')
     @include('pos.components.discount')
     @include('pos.components.expense', ['categories' => $categories])
+    @include('pos.components.transactions', ['recenttransactions' => $recenttransactions])
+    @include('pos.components.cancel')
 @endsection
 <style>
     .table-hover tbody tr:hover {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,13 +15,10 @@ class DashboardController extends Controller
 
     public function getDailyAmounts()
     {
-        $dailyTotals = DB::table('invoices')
-            ->select(
-                DB::raw('DATE(created_at) as date'),
-                DB::raw('SUM(amount) as total_amount')
-            )
+        $dailyTotals = Invoice::selectRaw('DATE(created_at) as date, SUM(amount) as total_amount')
             ->where('created_at', '>=', now()->subDays(30))
-            ->groupBy(DB::raw('DATE(created_at)'))
+            ->where('status', 1)
+            ->groupByRaw('DATE(created_at)')
             ->orderBy('date', 'asc')
             ->get();
 

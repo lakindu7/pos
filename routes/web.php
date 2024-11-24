@@ -175,6 +175,9 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('pos')->group(function () {
         Route::get('/', [PosController::class, 'index'])->name('pos');
+        Route::get('/invoice-ids', [PosController::class, 'getInvoiceIds']);
+        Route::get('/invoice-details', [PosController::class, 'getInvoiceDetails']);
+        Route::get('/cancel/{id}', [PosController::class, 'cancel']);
     });
 });
 

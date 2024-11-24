@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('points')->default(0);
             $table->string('customer_id')->nullable();
             $table->string('user_id')->nullable();
+            $table->integer('status')->default(1)->comment('0->cancelled,1->completed,2->exchanged');
             $table->timestamps();
         });
     }
