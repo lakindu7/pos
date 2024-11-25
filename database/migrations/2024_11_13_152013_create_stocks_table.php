@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('total')->nullable();
             $table->string('buyingtotal')->nullable();
             $table->integer('product_id')->nullable();
+            $table->integer('purchase_id')->nullable();
             $table->integer('user_id')->nullable();
             $table->integer('status')->default(1)->comment('0->disabled,1->active,2->deleted');
             $table->timestamps();

@@ -72,6 +72,14 @@
                 </li>
             </ul>
         </li>
+        <li class="side-nav-menu-item {{ $pagetitle == 'Purchases' ? 'active' : '' }}">
+            <a class="side-nav-menu-link media align-items-center" href="{{ route('purchases') }}">
+                <span class="side-nav-menu-icon d-flex mr-3">
+                    <i class="gd-files"></i>
+                </span>
+                <span class="side-nav-fadeout-on-closed media-body">Purchases</span>
+            </a>
+        </li>
         <li
             class="side-nav-menu-item side-nav-has-menu @isset($selectedlink)
     {{ $selectedlink === 'Expenses' ? 'active  side-nav-opened' : '' }}

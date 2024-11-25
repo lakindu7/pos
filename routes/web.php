@@ -11,6 +11,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\Pos\PosController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RewardSettingController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SettingsController;
@@ -172,6 +173,17 @@ Route::middleware('auth')->group(function () {
             Route::get('/expense-categories/{id}', 'edit')->name('expensecategories.edit');
             Route::post('/expense-categories/{id}', 'update')->name('expensecategories.update');
             Route::post('/expense-categories/delete/{id}', 'destroy')->name('expensecategories.destroy');
+        });
+
+        Route::controller(PurchaseController::class)->group(function () {
+            Route::get('/purchases',  'index')->name('purchases');
+            Route::get('/purchases/create', 'create')->name('purchases.create');
+            Route::post('/purchases/store', 'store')->name('purchases.store');
+            Route::get('/purchases/{id}', 'edit')->name('purchases.edit');
+            Route::post('/purchases/{id}', 'update')->name('purchases.update');
+            Route::post('/purchases/delete/{id}', 'destroy')->name('purchases.destroy');
+            Route::get('/purchases/autocomplete/products', 'autocomplete');
+            Route::get('/get/products/{id}', 'getProduct');
         });
     });
 

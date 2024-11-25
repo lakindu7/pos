@@ -189,7 +189,6 @@
             Rights Reserved.
         </div>
     </div>
-    </div>
 
     @include('pos.components.customer')
     @include('pos.components.stock')

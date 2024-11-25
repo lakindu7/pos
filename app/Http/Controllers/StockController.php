@@ -9,7 +9,6 @@ use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
-use Exception;
 
 class StockController extends Controller
 {

@@ -89,17 +89,20 @@ class InvoiceController extends Controller
     {
         $yearMonth = Carbon::now()->format('Y-m');
         return DB::transaction(function () use ($yearMonth) {
-            $latestInvoice = Invoice::where('invoiceid', 'like', 'INV-' . $yearMonth . '%')
+            $latestInvoice = Invoice::where('invoiceid', 'like', 'INV-' . $yearMonth . '-%')
                 ->lockForUpdate()
                 ->orderBy('created_at', 'desc')
                 ->first();
 
             $nextNumber = $latestInvoice ? (int) substr($latestInvoice->invoiceid, -3) + 1 : 1;
             $nextNumberFormatted = str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
-            $invoiceId = 'INV' . $yearMonth . '' . $nextNumberFormatted;
+
+            $invoiceId = 'INV-' . $yearMonth . '-' . $nextNumberFormatted;
+
             return $invoiceId;
         });
     }
+
 
     function calculatePoints($total)
     {
