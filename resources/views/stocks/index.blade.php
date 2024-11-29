@@ -10,21 +10,17 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12">
-                                <div class="table-responsive-xl">
+                                <div class="table-responsive">
                                     <table class="table text-nowrap mb-0 data-table-be">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
                                                 <th>Name</th>
                                                 <th>Sinhala Name</th>
-                                                <th>SKU</th>
                                                 <th>Selling Type</th>
                                                 <th>Category</th>
-                                                <th>Subcategory</th>
-                                                <th>Child Category</th>
                                                 <th>Brand</th>
                                                 <th>Supplier</th>
-                                                <th>Created By</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -62,10 +58,6 @@
                         name: 'name_si'
                     },
                     {
-                        data: 'sku',
-                        name: 'sku'
-                    },
-                    {
                         data: 'sellingtype',
                         name: 'sellingtype'
                     },
@@ -73,14 +65,7 @@
                         data: 'category',
                         name: 'category.name'
                     },
-                    {
-                        data: 'subcategory',
-                        name: 'subcategory.name'
-                    },
-                    {
-                        data: 'childcategory',
-                        name: 'childcategory.name'
-                    },
+
                     {
                         data: 'brand',
                         name: 'brand.name'
@@ -89,10 +74,6 @@
                         data: 'supplier',
                         name: 'supplier.name',
                         searchable: false
-                    },
-                    {
-                        data: 'created_by',
-                        name: 'user.name'
                     },
                     {
                         data: 'action',

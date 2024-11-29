@@ -62,6 +62,7 @@
                                                     <th>Unit Price</th>
                                                     <th>Buying Price</th>
                                                     <th>Market Price</th>
+                                                    <th>Expire Date</th>
                                                     <th>Subtotal</th>
                                                     <th>Delete</th>
                                                 </tr>
@@ -289,6 +290,9 @@
                         <input type="number" min="1" id="marketprice-${productId}" class="marketprice">
                     </td>
                     <td>
+                        <input type="date" min="1" id="expiredate-${productId}" class="expiredate">
+                    </td>
+                    <td>
                         <input type="number" min="1" id="subtotal-${productId}" class="subtotal" readonly>
                         <input type="number" min="1" id="unittotal-${productId}" class="unittotal" readonly hidden>
                     </td>
@@ -382,6 +386,7 @@
                 const marketPrice = parseFloat($(`#marketprice-${productId}`).val()) || 0;
                 const subtotal = parseFloat($(`#subtotal-${productId}`).val()) || 0;
                 const unittotal = parseFloat($(`#unittotal-${productId}`).val()) || 0;
+                const expiredate = $(`#expiredate-${productId}`).val();
                 if (quantity <= 0 || unitPrice <= 0 || buyingPrice <= 0 || marketPrice <= 0 || subtotal <=
                     0 || unittotal <= 0) {
                     allValid = false;
@@ -398,6 +403,7 @@
                         market_price: marketPrice,
                         subtotal: subtotal,
                         unittotal: unittotal,
+                        expiredate: expiredate,
                     });
                 }
             });

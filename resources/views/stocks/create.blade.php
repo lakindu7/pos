@@ -11,13 +11,17 @@
                         @csrf
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-12 col-md-6 form-group">
+                                <div class="col-12 col-md-4 form-group">
                                     <label for="txtReference">Reference</label>
                                     <input type="text" class="form-control" id="txtReference" name="reference">
                                 </div>
-                                <div class="col-12 col-md-6 form-group">
+                                <div class="col-12 col-md-4 form-group">
                                     <label for="txtQuantity">Quantity *</label>
                                     <input type="number" class="form-control" id="txtQuantity" name="quantity" required>
+                                </div>
+                                <div class="col-12 col-md-4 form-group">
+                                    <label for="txtExpDate">Expire Date</label>
+                                    <input type="date" class="form-control" id="txtExpDate" name="expiredate">
                                 </div>
                             </div>
                             <div class="row">

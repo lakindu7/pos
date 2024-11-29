@@ -69,6 +69,19 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="txtAddress">Address</label>
+                                        <textarea class="form-control @error('address') is-invalid @enderror"
+                                            id="txtAddress" name="address" rows="3">{{ old('address', $customer->address) }}</textarea>
+                                        @error('address')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-12 d-flex justify-content-end">
                                     <button class="btn btn-primary">Update</button>
                                 </div>

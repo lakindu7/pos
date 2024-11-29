@@ -98,12 +98,11 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <div class="table-responsive-xl">
+                                <div class="table-responsive">
                                     <table class="table text-nowrap mb-0 data-table-be">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Stock Id</th>
                                                 <th>Reference</th>
                                                 <th>Quantity</th>
                                                 <th>Available Quantity</th>
@@ -112,6 +111,7 @@
                                                 <th>Market Price</th>
                                                 <th>Total</th>
                                                 <th>Buying Total</th>
+                                                <th>Exp Date</th>
                                                 <th>Created By</th>
                                                 <th>Created Date</th>
                                                 <th>Actions</th>
@@ -121,7 +121,6 @@
                                             @foreach ($stocks as $key => $stock)
                                                 <tr>
                                                     <td class="py-3">{{ $key + 1 }}</td>
-                                                    <td class="py-3">{{ $stock->stockid }}</td>
                                                     <td class="py-3">{{ $stock->reference }}</td>
                                                     <td class="py-3">
                                                         {{ $product->sellingtype == 'Grams' ? $stock->quantity / 1000 : $stock->quantity }}
@@ -134,6 +133,7 @@
                                                     <td class="py-3">{{ $stock->marketprice }}</td>
                                                     <td class="py-3">{{ $stock->total }}</td>
                                                     <td class="py-3">{{ $stock->buyingtotal }}</td>
+                                                    <td class="py-3">{{ $stock->expiredate ?? '-' }}</td>
                                                     <td class="py-3">{{ $stock->user->name ?? '' }}</td>
                                                     <td class="py-3">{{ $stock->created_at->format('F d, Y') }}</td>
                                                     <td class="py-3">

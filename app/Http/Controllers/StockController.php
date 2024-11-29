@@ -26,8 +26,6 @@ class StockController extends Controller
             return DataTables::of($products)
                 ->addIndexColumn()
                 ->addColumn('category', fn($product) => $product->category->name ?? '')
-                ->addColumn('subcategory', fn($product) => $product->subcategory->name ?? '')
-                ->addColumn('childcategory', fn($product) => $product->childcategory->name ?? '')
                 ->addColumn('brand', fn($product) => $product->brand->name ?? '')
                 ->addColumn('supplier', fn($product) => $product->supplier->name ?? 'NA')
                 ->addColumn('created_by', fn($product) => $product->user->name ?? '')

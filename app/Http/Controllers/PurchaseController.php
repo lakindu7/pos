@@ -14,7 +14,11 @@ use Illuminate\Support\Facades\DB;
 
 class PurchaseController extends Controller
 {
-    public function index() {}
+    public function index()
+    {
+        $purchases = Purchase::where('status', 1)->get();
+        return view('purchases.index', compact('purchases'));
+    }
 
     public function create()
     {
@@ -100,6 +104,7 @@ class PurchaseController extends Controller
             $stock->total = $product['unittotal'];
             $stock->buyingtotal = $product['subtotal'];
             $stock->product_id = $product['product_id'];
+            $stock->expiredate = $product['expiredate'];
             $stock->purchase_id = $purchase->id;
             $stock->user_id = Auth::user()->id;
             $stock->save();
@@ -126,5 +131,13 @@ class PurchaseController extends Controller
         }
 
         return "$prefix-$year-$nextNumber";
+    }
+
+    public function edit($id)
+    {
+        $purchase = Purchase::find($id);
+        $stocks = Stock::where('purchase_id', $id)->get();
+        $suppliers = Supplier::where('status', 1)->get();
+        return view('purchases.edit', compact('purchase', 'suppliers', 'stocks'));
     }
 }

@@ -18,9 +18,9 @@ return new class extends Migration
             $table->double('amount');
             $table->text('expensenote')->nullable();
             $table->text('deletenote')->nullable();
-            $table->integer('status')->default(1)->comment('0->deleted,1->active');
             $table->integer('user_id');
             $table->integer('expense_category_id');
+            $table->integer('status')->default(1)->comment('0->deleted,1->active');
             $table->timestamps();
         });
     }

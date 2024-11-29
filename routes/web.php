@@ -15,6 +15,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RewardSettingController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\SMSController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\SupplierController;
@@ -28,6 +29,8 @@ Route::get('/', function () {
 
 
 // Route::get('/apidata', [ProductController::class, 'getapi']);
+
+Route::get('/sendsms', [SMSController::class, 'send']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

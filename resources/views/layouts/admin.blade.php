@@ -35,7 +35,6 @@
             @include('components.footer')
         </div>
     </main>
-
     <script src="{{ asset('dist/graindashboard/js/graindashboard.js') }}"></script>
     <script src="{{ asset('dist/graindashboard/js/graindashboard.vendor.js') }}"></script>
     <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>

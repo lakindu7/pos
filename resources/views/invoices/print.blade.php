@@ -14,6 +14,14 @@
         margin-block-end: 0 !important;
     }
 
+    .header-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .header-section p {
+        font-size: .75rem;
+    }
+
     hr {
         margin: 0 !important;
     }
@@ -22,12 +30,12 @@
 <body>
     <div>
         <div class="row">
-            <div class="col-12" style="text-align: center;">
+            <div class="col-12 header-section" style="text-align: center;">
                 <h2 style="margin-bottom: 0;">{{ $setting->businessname }}</h2>
                 <p>{{ $setting->address1 }}, {{ $setting->address2 ? $setting->address2 . ',' : '' }}
                     {{ $setting->city }}
                 </p>
-                <p>{{ $setting->contact ?? '' }} </p>
+                {{-- <p>{{ $setting->contact ?? '' }} </p> --}}
                 <p><b>INVOICE</b>
                 <p>
                     <hr>
@@ -36,8 +44,18 @@
         <div class="row">
             <div class="col-12" style="font-size:12px">
                 <p><b>Invoice No :</b> {{ $invoice->invoiceid }} </p>
-                <p><b>Name :</b> {{ $invoice->customer->name ?? 'Customer' }} </p>
-                <p><b>Date :</b> {{ $invoice->created_at->format('Y-m-d') }} </p>
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <p><b>Name :</b> {{ $invoice->customer->name ?? 'Customer' }} </p>
+                        </td>
+                        <td style="text-align: right">
+                            <p><b>Date :</b> {{ $invoice->created_at->format('Y-m-d') }} </p>
+                        </td>
+                    </tr>
+                </table>
+
+
                 <hr>
             </div>
             <div class="col-12">

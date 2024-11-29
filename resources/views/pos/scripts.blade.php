@@ -251,10 +251,10 @@
             }
         });
 
-        if (productExists) {
-            alert(`${productName} is already added to the table.`);
-            return;
-        }
+        // if (productExists) {
+        //     alert(`${productName} is already added to the table.`);
+        //     return;
+        // }
 
         let markup = `
                         <tr data-product-id="${productId}" id="row-${productId}" data-stockid="${stockid}", data-marketprice="${marketprice}",

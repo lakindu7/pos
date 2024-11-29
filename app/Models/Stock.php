@@ -17,7 +17,8 @@ class Stock extends Model
         'total',
         'buyingtotal',
         'product_id',
-        'user_id'
+        'user_id',
+        'expiredate'
     ];
 
     public function product()

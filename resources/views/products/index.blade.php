@@ -13,7 +13,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12">
-                                <div class="table-responsive-xl">
+                                <div class="table-responsive">
                                     <table class="table text-nowrap mb-0 data-table-be">
                                         <thead>
                                             <tr>

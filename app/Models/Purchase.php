@@ -47,4 +47,9 @@ class Purchase extends Model
 
         return "{$prefix}{$year}{$formattedMonth}{$sequenceFormatted}";
     }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
+    }
 }

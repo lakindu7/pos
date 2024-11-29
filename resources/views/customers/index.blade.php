@@ -13,7 +13,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12">
-                                <div class="table-responsive-xl">
+                                <div class="table-responsive">
                                     <table class="table text-nowrap mb-0 data-table">
                                         <thead>
                                             <tr>
@@ -21,6 +21,7 @@
                                                 <th class="font-weight-semi-bold border-top-0 py-2">Name</th>
                                                 <th class="font-weight-semi-bold border-top-0 py-2">Telephone</th>
                                                 <th class="font-weight-semi-bold border-top-0 py-2">Email</th>
+                                                <th class="font-weight-semi-bold border-top-0 py-2">Address</th>
                                                 <th class="font-weight-semi-bold border-top-0 py-2">Date of Birth</th>
                                                 <th class="font-weight-semi-bold border-top-0 py-2">Created Date</th>
                                                 <th class="font-weight-semi-bold border-top-0 py-2">Actions</th>
@@ -33,6 +34,7 @@
                                                     <td class="py-3">{{ $customer->name }}</td>
                                                     <td class="py-3">{{ $customer->telephone }}</td>
                                                     <td class="py-3">{{ $customer->email }}</td>
+                                                    <td class="py-3">{{ $customer->address }}</td>
                                                     <td class="py-3">{{ $customer->dob }}</td>
                                                     <td class="py-3">{{ $customer->created_at->format('F d, Y') }}</td>
                                                     <td class="py-3">
