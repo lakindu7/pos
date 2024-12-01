@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('marketprice')->nullable();
             $table->string('total')->nullable();
             $table->string('buyingtotal')->nullable();
+            $table->string('expiredate')->nullable();
             $table->integer('product_id')->nullable();
             $table->integer('purchase_id')->nullable();
             $table->integer('user_id')->nullable();

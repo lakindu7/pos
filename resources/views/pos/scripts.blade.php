@@ -172,6 +172,7 @@
                                         <p class="card-text">Quantity: ${quantity}${stockItem.product.sellingtype === "Grams" ? unit : "Pc"}</p>
                                         <p class="card-text">Price: LKR ${stockItem.price}</p>
                                         <p class="card-text">Market Price: LKR ${stockItem.marketprice}</p>
+                                        <p class="card-text"><b>Expire Date: ${stockItem.expiredate}</b></p>
                                     </div>
                                 </div>
                             </div>

@@ -18,6 +18,7 @@
                                                 <th>Name</th>
                                                 <th>Sinhala Name</th>
                                                 <th>Selling Type</th>
+                                                <th>Barcode</th>
                                                 <th>Category</th>
                                                 <th>Brand</th>
                                                 <th>Supplier</th>
@@ -60,6 +61,10 @@
                     {
                         data: 'sellingtype',
                         name: 'sellingtype'
+                    },
+                    {
+                        data: 'barcode',
+                        name: 'barcode'
                     },
                     {
                         data: 'category',

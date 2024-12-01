@@ -165,18 +165,23 @@
                             <div class="row">
                                 <div class="col-12 col-md-4">
                                     <label for="txtPrice">Price *</label>
-                                    <input type="number" class="form-control" id="txtPrice" name="price" required>
+                                    <input type="number" class="form-control" id="txtPrice" name="price" required
+                                        step="0.01">
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <label for="txtBuy">Buying Price *</label>
                                     <input type="number" class="form-control" id="txtBuy" name="buyingprice"
-                                        required>
+                                        required step="0.01">
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <label for="txtMarket">Market Price *</label>
                                     <input type="number" class="form-control" id="txtMarket" name="marketprice"
-                                        required>
+                                        required step="0.01">
                                 </div>
+                            </div>
+                            <div class="col-12 col-md-4 form-group">
+                                <label for="txtExpDate">Expire Date</label>
+                                <input type="date" class="form-control" id="txtExpDate" name="expiredate">
                             </div>
                             <input type="hidden" readonly name="user_id" value="{{ Auth::user()->id }}">
                             <div class="row">

@@ -34,11 +34,8 @@ class ProductController extends Controller
 
                 ->addIndexColumn()
                 ->addColumn('category', fn($product) => $product->category->name ?? '')
-                ->addColumn('subcategory', fn($product) => $product->subcategory->name ?? '')
-                ->addColumn('childcategory', fn($product) => $product->childcategory->name ?? '')
                 ->addColumn('brand', fn($product) => $product->brand->name ?? '')
                 ->addColumn('supplier', fn($product) => $product->supplier->name ?? '')
-                ->addColumn('created_by', fn($product) => $product->user->name ?? '')
                 ->addColumn('action', function ($product) {
                     return '<a href="' . route('products.view', $product->id) . '" class="link-dark mr-2">
                             <i class="gd-eye icon-text"></i>

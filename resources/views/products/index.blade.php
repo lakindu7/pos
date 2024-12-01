@@ -20,14 +20,11 @@
                                                 <th>#</th>
                                                 <th>Name</th>
                                                 <th>Sinhala Name</th>
-                                                <th>SKU</th>
+                                                <th>Barcode</th>
                                                 <th>Selling Type</th>
                                                 <th>Category</th>
-                                                <th>Subcategory</th>
-                                                <th>Child Category</th>
                                                 <th>Brand</th>
                                                 <th>Supplier</th>
-                                                <th>Created By</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -65,8 +62,8 @@
                         name: 'name_si'
                     },
                     {
-                        data: 'sku',
-                        name: 'sku'
+                        data: 'barcode',
+                        name: 'barcode'
                     },
                     {
                         data: 'sellingtype',
@@ -78,18 +75,7 @@
                         orderable: false,
                         searchable: false
                     },
-                    {
-                        data: 'subcategory',
-                        name: 'subcategory.name',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'childcategory',
-                        name: 'childcategory.name',
-                        orderable: false,
-                        searchable: false
-                    },
+
                     {
                         data: 'brand',
                         name: 'brand.name',
@@ -102,12 +88,7 @@
                         orderable: false,
                         searchable: false
                     },
-                    {
-                        data: 'created_by',
-                        name: 'user.name',
-                        orderable: false,
-                        searchable: false
-                    },
+
                     {
                         data: 'action',
                         name: 'action',
