@@ -159,10 +159,27 @@ class StockController extends Controller
 
     public function update(Request $request, $id)
     {
-        $stock = Stock::findOrFail($id);
-        $stock->update($request->all());
-        return redirect()->route('products.view', $stock->product_id)->with('success', 'Section updated successfully.');
+        $stock = Stock::find($id);
+        $product = Product::find($stock->product_id);
+
+        if ($product->sellingtype === 'Grams') {
+            $total = ($request->quantity * $request->price) / 1000;
+            $buyingtotal = ($request->quantity * $request->buyingprice) / 1000;
+        } else {
+            $total = $request->quantity * $request->price;
+            $buyingtotal = $request->quantity * $request->buyingprice;
+        }
+
+        $stock->total = $total;
+        $stock->expiredate = $request->expiredate;
+        $stock->availablequantity = $request->quantity;
+        $stock->quantity = $request->quantity;
+        $stock->buyingtotal = $buyingtotal;
+        $stock->save();
+
+        return redirect()->route('stocks')->with('success', 'Stock edited successfully.');
     }
+
 
     public function destroy($id)
     {

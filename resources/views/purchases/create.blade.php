@@ -97,8 +97,8 @@
                                 <div class="col-12 col-md-6">
                                     <label for="cmbPayment">Payment Method *</label>
                                     <select name="paymentmethod" id="cmbPayment" class="form-control">
-                                        <option value="" selected disabled>Select Payment Method</option>
-                                        <option value="Cash">Cash</option>
+                                        <option value="Cash" selected>Cash</option>
+                                        <option value="Half">Half Payment</option>
                                         <option value="Credit">Credit Bill</option>
                                         <option value="Cheque">Cheque</option>
                                         <option value="Card">Card</option>
@@ -107,7 +107,17 @@
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <label for="txtTotal">Total *</label>
-                                    <input type="text" name="total" class="form-control" id="txtTotal">
+                                    <input type="text" name="total" class="form-control" id="txtTotal" readonly>
+                                </div>
+                                <div class="col-12 col-md-6 pt-4">
+                                    <label for="txtPayment">Payment *</label>
+                                    <input type="text" name="payment" class="form-control" id="txtPayment" readonly
+                                        required>
+                                </div>
+                                <div class="col-12 col-md-6 pt-4">
+                                    <label for="txtBalance">Balance *</label>
+                                    <input type="text" name="balance" class="form-control" id="txtBalance" required
+                                        value="0" readonly>
                                 </div>
                             </div>
                             <div class="row" id="paymentinfo">
@@ -152,6 +162,7 @@
                 $('#paymentinfo').html('');
 
                 if (paymentMethod == 'Card') {
+                    $('#txtPayment').attr("readonly", "readonly");
                     paymentInfoHtml += `
                             <div class="col-12 col-md-6 pt-4">
                                 <label for="cardNumber">Card Number</label>
@@ -167,6 +178,7 @@
                             </div>
                         `;
                 } else if (paymentMethod == 'Cheque') {
+                    $('#txtPayment').attr("readonly", "readonly");
                     paymentInfoHtml += `
                             <div class="col-12 col-md-6 pt-4">
                                 <label for="bank">Bank</label>
@@ -182,6 +194,7 @@
                             </div>
                         `;
                 } else if (paymentMethod == 'Bank') {
+                    $('#txtPayment').attr("readonly", "readonly");
                     paymentInfoHtml += `
                             <div class="col-12 col-md-6 pt-4">
                                 <label for="paymentReference">Payment Reference</label>
@@ -204,6 +217,14 @@
                                 <input type="text" name="branch" class="form-control" id="branch">
                             </div>
                         `;
+                } else if (paymentMethod == 'Credit') {
+                    $('#txtPayment').attr("readonly", "readonly");
+                    $('#txtPayment').val(0);
+                    calculatePayment();
+                } else if (paymentMethod == 'Half') {
+                    $('#txtPayment').removeAttr("readonly");
+                } else if (paymentMethod == 'Cash') {
+                    $('#txtPayment').attr("readonly", "readonly");
                 }
                 $('#paymentinfo').html(paymentInfoHtml);
             });
@@ -353,6 +374,19 @@
 
             $('#grandTotal').text(grandTotal.toFixed(2));
             $('#txtTotal').val(grandTotal.toFixed(2));
+            $('#txtPayment').val(grandTotal.toFixed(2));
+            calculatePayment();
+        }
+
+        $('#txtPayment').on('keyup', function() {
+            calculatePayment();
+        });
+
+        function calculatePayment() {
+            let total = $('#txtTotal').val();
+            let payment = $('#txtPayment').val();
+            let balance = total - payment;
+            $('#txtBalance').val(balance.toFixed(2));
         }
 
         function calculateItemCount() {

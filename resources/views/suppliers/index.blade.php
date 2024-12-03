@@ -42,6 +42,10 @@
                                                     <td class="py-3">
                                                         <div class="position-relative d-flex">
                                                             <a class="link-dark d-inline-block mr-2"
+                                                                href="{{ route('suppliers.view', $supplier->id) }}">
+                                                                <i class="gd-eye icon-text"></i>
+                                                            </a>
+                                                            <a class="link-dark d-inline-block mr-2"
                                                                 href="{{ route('suppliers.edit', $supplier->id) }}">
                                                                 <i class="gd-pencil icon-text"></i>
                                                             </a>

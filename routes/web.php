@@ -140,7 +140,15 @@ Route::middleware('auth')->group(function () {
             Route::post('/suppliers/store', 'store')->name('suppliers.store');
             Route::get('/suppliers/{id}', 'edit')->name('suppliers.edit');
             Route::post('/suppliers/{id}', 'update')->name('suppliers.update');
+            Route::get('/suppliers/view/{id}', 'view')->name('suppliers.view');
             Route::post('/suppliers/delete/{id}', 'destroy')->name('suppliers.destroy');
+
+            //contacts
+            Route::get('/suppliercontact/create/{id}', 'contactcreate')->name('suppliercontact.create');
+            Route::post('/suppliercontact/store/{id}', 'contactstore')->name('suppliercontact.store');
+            Route::get('/suppliercontact/{id}', 'contactedit')->name('suppliercontact.edit');
+            Route::post('/suppliercontact/{id}', 'contactupdate')->name('suppliercontact.update');
+            Route::post('/suppliercontact/contactdelete/{id}', 'contactdelete')->name('suppliercontact.destroy');
         });
 
         Route::controller(InvoiceController::class)->group(function () {
@@ -191,10 +199,12 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('pos')->group(function () {
+        Route::post('/startday', [PosController::class, 'startday'])->name('startday');
         Route::get('/', [PosController::class, 'index'])->name('pos');
         Route::get('/invoice-ids', [PosController::class, 'getInvoiceIds']);
         Route::get('/invoice-details', [PosController::class, 'getInvoiceDetails']);
         Route::get('/cancel/{id}', [PosController::class, 'cancel']);
+        Route::get('/dayend/{date?}', [PosController::class, 'dayend'])->name('dayend');
     });
 });
 

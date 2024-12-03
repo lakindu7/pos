@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('reference')->nullable();
             $table->string('purchaseid')->nullable();
             $table->string('total');
+            $table->string('payment');
+            $table->string('balance');
             $table->string('document')->nullable();
             $table->string('paymentmethod');
             $table->string('cardno')->nullable();

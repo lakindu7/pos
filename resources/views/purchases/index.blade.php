@@ -20,6 +20,8 @@
                                                 <th class="font-weight-semi-bold border-top-0 py-2">#</th>
                                                 <th class="font-weight-semi-bold border-top-0 py-2">Purchase Id</th>
                                                 <th class="font-weight-semi-bold border-top-0 py-2">Total</th>
+                                                <th class="font-weight-semi-bold border-top-0 py-2">Payment</th>
+                                                <th class="font-weight-semi-bold border-top-0 py-2">Balance</th>
                                                 <th class="font-weight-semi-bold border-top-0 py-2">Payment Method</th>
                                                 <th class="font-weight-semi-bold border-top-0 py-2">Supplier</th>
                                                 <th class="font-weight-semi-bold border-top-0 py-2">Created Date</th>
@@ -32,7 +34,20 @@
                                                     <td class="py-3">{{ $key + 1 }}</td>
                                                     <td class="py-3">{{ $purchase->purchaseid }}</td>
                                                     <td class="py-3">{{ $purchase->total }}</td>
-                                                    <td class="py-3">{{ $purchase->paymentmethod }}</td>
+                                                    <td class="py-3">{{ $purchase->payment }}</td>
+                                                    <td class="py-3">{{ $purchase->balance }}</td>
+                                                    <td class="py-3">
+                                                        @if ($purchase->paymentmethod === 'Cash')
+                                                            <span class="badge bg-success">Cash</span>
+                                                        @elseif ($purchase->paymentmethod === 'Credit')
+                                                            <span class="badge bg-danger">Credit</span>
+                                                        @elseif ($purchase->paymentmethod === 'Half')
+                                                            <span class="badge bg-warning text-dark">Half</span>
+                                                        @else
+                                                            <span
+                                                                class="badge bg-primary">{{ $purchase->paymentmethod }}</span>
+                                                        @endif
+                                                    </td>
                                                     <td class="py-3">{{ $purchase->supplier->name }}</td>
                                                     <td class="py-3">{{ $purchase->created_at->format('F d, Y') }}</td>
                                                     <td class="py-3">

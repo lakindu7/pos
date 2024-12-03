@@ -10,6 +10,8 @@ class Purchase extends Model
         'reference',
         'purchaseid',
         'total',
+        'payment',
+        'balance',
         'document',
         'paymentmethod',
         'cardno',

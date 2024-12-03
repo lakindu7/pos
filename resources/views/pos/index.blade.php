@@ -190,6 +190,13 @@
         </div>
     </div>
 
+
+
+    @if ($dayEndcompleted != '')
+        @include('pos.components.dayendnotcomp')
+    @endif
+    @include('pos.components.daystart')
+
     @include('pos.components.customer')
     @include('pos.components.stock')
     @include('pos.components.discount')
@@ -210,4 +217,21 @@
 </style>
 @push('js')
     @include('pos.scripts')
+    {{-- @if ($dayEndcompleted == '') --}}
+    @if ($startday == false)
+        <script>
+            $(document).ready(function() {
+                var myModal = new bootstrap.Modal($('#staticBackdrop')[0]);
+                myModal.show();
+            });
+        </script>
+    @endif
+    {{-- @else --}}
+    <script>
+        $(document).ready(function() {
+            var myModal = new bootstrap.Modal($('#dayendNot')[0]);
+            myModal.show();
+        });
+    </script>
+    {{-- @endif --}}
 @endpush

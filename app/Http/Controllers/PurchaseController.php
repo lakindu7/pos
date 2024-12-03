@@ -16,7 +16,7 @@ class PurchaseController extends Controller
 {
     public function index()
     {
-        $purchases = Purchase::where('status', 1)->get();
+        $purchases = Purchase::where('status', 1)->orderby('id', "desc")->get();
         return view('purchases.index', compact('purchases'));
     }
 
@@ -91,23 +91,52 @@ class PurchaseController extends Controller
 
         $formData = $request->input('products');
         $decodedData = json_decode($formData, true);
-
         foreach ($decodedData['products'] as $product) {
-            $stock = new Stock();
+            if ($product['sellingtype'] == "Grams") {
+                $oldstocks = Stock::where('availablequantity', '>', 0)->where('status', 1)->where('product_id', $product['product_id'])->get();
+                $oldquantity = 0;
+                foreach ($oldstocks as $oldstock) {
+                    $oldquantity += $oldstock->availablequantity;
 
-            $stock->stockid = $this->generateStockID();
-            $stock->quantity = $product['quantity'];
-            $stock->availablequantity = $product['quantity'];
-            $stock->price = $product['unit_price'];
-            $stock->buyingprice = $product['buying_price'];
-            $stock->marketprice = $product['market_price'];
-            $stock->total = $product['unittotal'];
-            $stock->buyingtotal = $product['subtotal'];
-            $stock->product_id = $product['product_id'];
-            $stock->expiredate = $product['expiredate'];
-            $stock->purchase_id = $purchase->id;
-            $stock->user_id = Auth::user()->id;
-            $stock->save();
+                    $oldstock->transferdqty = $oldstock->availablequantity;
+                    $oldstock->availablequantity = 0;
+                    $oldstock->transfernote = "Merged on" . date('Y-m-d');
+                    $oldstock->save();
+                }
+
+                $stock = new Stock();
+                $stock->stockid = $this->generateStockID();
+                $stock->quantity = $oldquantity + $product['quantity'];
+                $stock->availablequantity = $oldquantity + $product['quantity'];
+                $stock->actualqty = $product['quantity'];
+                $stock->fromtransfer = $oldquantity;
+                $stock->price = $product['unit_price'];
+                $stock->buyingprice = $product['buying_price'];
+                $stock->marketprice = $product['market_price'];
+                $stock->total = $product['unittotal'];
+                $stock->buyingtotal = $product['subtotal'];
+                $stock->product_id = $product['product_id'];
+                $stock->expiredate = !empty($product['expiredate']) ? $product['expiredate'] : null;
+                $stock->purchase_id = $purchase->id;
+                $stock->user_id = Auth::user()->id;
+                $stock->save();
+            } else {
+                $stock = new Stock();
+                $stock->stockid = $this->generateStockID();
+                $stock->quantity = $product['quantity'];
+                $stock->availablequantity = $product['quantity'];
+                $stock->actualqty = $product['quantity'];
+                $stock->price = $product['unit_price'];
+                $stock->buyingprice = $product['buying_price'];
+                $stock->marketprice = $product['market_price'];
+                $stock->total = $product['unittotal'];
+                $stock->buyingtotal = $product['subtotal'];
+                $stock->product_id = $product['product_id'];
+                $stock->expiredate = !empty($product['expiredate']) ? $product['expiredate'] : null;
+                $stock->purchase_id = $purchase->id;
+                $stock->user_id = Auth::user()->id;
+                $stock->save();
+            }
         }
 
         return redirect()->route('purchases')->with('success', 'Purchase added successfully.');
@@ -136,8 +165,71 @@ class PurchaseController extends Controller
     public function edit($id)
     {
         $purchase = Purchase::find($id);
-        $stocks = Stock::where('purchase_id', $id)->get();
+        $stocks = Stock::with('product')->where('purchase_id', $id)->get();
         $suppliers = Supplier::where('status', 1)->get();
         return view('purchases.edit', compact('purchase', 'suppliers', 'stocks'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $purchase = Purchase::findOrFail($id);
+
+        $purchase->update($request->except(['document', 'products']));
+
+        if ($request->hasFile('document')) {
+            $image = $request->file('document');
+            $imageName = Str::uuid() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/purchases/' . $purchase->id . '/document');
+
+            if (!File::exists($destinationPath)) {
+                File::makeDirectory($destinationPath, 0755, true);
+            }
+
+            if ($purchase->document && File::exists($destinationPath . '/' . $purchase->document)) {
+                File::delete($destinationPath . '/' . $purchase->document);
+            }
+
+            $image->move($destinationPath, $imageName);
+            $purchase->document = $imageName;
+            $purchase->save();
+        }
+
+        $formData = $request->input('products');
+        $decodedData = json_decode($formData, true);
+
+        Stock::where('purchase_id', $purchase->id)->delete();
+
+        foreach ($decodedData['products'] as $product) {
+            $stock = new Stock();
+            $stock->quantity = $product['quantity'];
+            $stock->availablequantity = $product['quantity'];
+            $stock->price = $product['unit_price'];
+            $stock->buyingprice = $product['buying_price'];
+            $stock->marketprice = $product['market_price'];
+            $stock->total = $product['unittotal'];
+            $stock->buyingtotal = $product['subtotal'];
+            $stock->product_id = $product['product_id'];
+            $stock->expiredate = !empty($product['expiredate']) ? $product['expiredate'] : null;
+            $stock->purchase_id = $purchase->id;
+            $stock->user_id = Auth::user()->id;
+            $stock->save();
+        }
+
+        return redirect()->route('purchases')->with('success', 'Purchase updated successfully.');
+    }
+
+    public function destroy($id)
+    {
+        $purchase = Purchase::find($id);
+        $purchase->status = 0;
+        $purchase->save();
+
+        $stocks = Stock::with('product')->where('purchase_id', $id)->get();
+        foreach ($stocks as $stock) {
+            $stock = Stock::findOrFail($stock->id);
+            $stock->status = 0;
+            $stock->save();
+        }
+        return redirect()->route('purchases')->with('success', 'Purchase deleted successfully.');
     }
 }

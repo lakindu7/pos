@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('reference')->nullable();
             $table->string('quantity')->nullable();
             $table->string('availablequantity')->nullable();
+            $table->string('transferdqty')->nullable();
+            $table->string('fromtransfer')->nullable();
+            $table->string('actualqty')->nullable();
+            $table->text('transfernote')->nullable();
             $table->string('price')->nullable();
             $table->string('buyingprice')->nullable();
             $table->string('marketprice')->nullable();

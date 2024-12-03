@@ -21,4 +21,14 @@ class Supplier extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function suppliercontacts()
+    {
+        return $this->hasMany(SupllierContact::class);
+    }
 }
