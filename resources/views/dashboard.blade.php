@@ -6,7 +6,7 @@
                 <div class="card-header d-flex">
                     <h5 class="h6 font-weight-semi-bold text-uppercase mb-0">Dashboard</h5>
                     <div class="ml-auto">
-                        <a href="" class="btn btn-primary btn-sm">Add New</a>
+                        <a href="{{ route('pos') }}" class="btn btn-primary btn-sm" target="_blank">New Invoice</a>
                     </div>
                 </div>
                 <div class="card-body p-0">

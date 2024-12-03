@@ -155,6 +155,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/invoices', 'index')->name('invoices');
             Route::post('/invoices/store', 'store')->name('invoices.store');
             Route::get('/invoices/print/{id}', 'print')->name('invoices.print');
+            Route::post('/invoices/delete/{id}', 'destroy')->name('invoices.destroy');
         });
 
         Route::controller(SettingsController::class)->group(function () {

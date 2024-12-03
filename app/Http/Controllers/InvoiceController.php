@@ -12,10 +12,47 @@ use Illuminate\Http\Request;
 use App\Models\InvoiceDetail;
 use App\Models\RewardSetting;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
+
 
 class InvoiceController extends Controller
 {
-    public function index() {}
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $invoices = Invoice::with('customer:id,name')->where('status', 1)
+                ->select([
+                    'id',
+                    'invoiceid',
+                    'invoicetype',
+                    'amount',
+                    'payment',
+                    'balance',
+                    'points',
+                    'customer_id',
+                ]);
+
+            return DataTables::of($invoices)
+                ->addColumn('customer_name', function ($invoice) {
+                    return $invoice->customer->name ?? 'Customer';
+                })
+                ->addColumn('action', function ($invoice) {
+                    return '<button class="btn btn-danger btn-sm cancel-invoice" data-id="' . $invoice->id . '">Cancel</button>';
+                })
+                ->addColumn('action', function ($product) {
+                    return '
+                        <form action="' . route('invoices.destroy', $product->id) . '" method="POST" style="display:inline;"
+                              onsubmit="return confirm(\'Are you sure you want to delete this invoice?\');">
+                            ' . csrf_field() . '
+                            <button type="submit" class="btn btn-link p-0 link-dark"><i class="gd-trash icon-text"></i></button>
+                        </form>';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('invoices.index');
+    }
 
     public function create()
     {
@@ -128,5 +165,13 @@ class InvoiceController extends Controller
         $setting = Setting::first();
 
         return view('invoices.print', compact('invoice', 'invoicedetails', 'setting'));
+    }
+
+    public function destroy($id)
+    {
+        $invoice = Invoice::findOrFail($id);
+        $invoice->status = 0;
+        $invoice->save();
+        return redirect()->route('invoices')->with('success', 'Product deleted successfully.');
     }
 }
