@@ -82,8 +82,8 @@
         </li>
         <li
             class="side-nav-menu-item side-nav-has-menu @isset($selectedlink)
-    {{ $selectedlink === 'Expenses' ? 'active  side-nav-opened' : '' }}
-@endisset">
+                    {{ $selectedlink === 'Expenses' ? 'active  side-nav-opened' : '' }}
+                @endisset">
             <a class="side-nav-menu-link media align-items-center" href="#" data-target="#expenses">
                 <span class="side-nav-menu-icon d-flex mr-3">
                     <i class="gd-receipt"></i>
@@ -101,6 +101,30 @@
                 </li>
                 <li class="side-nav-menu-item {{ $pagetitle == 'Expense Categories' ? 'active' : '' }}">
                     <a class="side-nav-menu-link" href="{{ route('expensecategories') }}">Expense Categories</a>
+                </li>
+            </ul>
+        </li>
+        <li
+            class="side-nav-menu-item side-nav-has-menu @isset($selectedlink)
+                    {{ $selectedlink === 'Promotions' ? 'active  side-nav-opened' : '' }}
+                @endisset">
+            <a class="side-nav-menu-link media align-items-center" href="#" data-target="#promotions">
+                <span class="side-nav-menu-icon d-flex mr-3">
+                    <i class="gd-gift"></i>
+                </span>
+                <span class="side-nav-fadeout-on-closed media-body">Promotions</span>
+                <span class="side-nav-control-icon d-flex">
+                    <i class="gd-angle-right side-nav-fadeout-on-closed"></i>
+                </span>
+                <span class="side-nav__indicator side-nav-fadeout-on-closed"></span>
+            </a>
+            <ul id="promotions" class="side-nav-menu side-nav-menu-second-level mb-0"
+                @isset($selectedlink) @if ($selectedlink === 'Offers') style="display: block;" @endif @endisset>
+                <li class="side-nav-menu-item {{ $pagetitle == 'Offers' ? 'active' : '' }}">
+                    <a class="side-nav-menu-link" href="{{ route('expenses') }}">Offers</a>
+                </li>
+                <li class="side-nav-menu-item {{ $pagetitle == 'Vouchers & Promo Codes' ? 'active' : '' }}">
+                    <a class="side-nav-menu-link" href="{{ route('expensecategories') }}">Vouchers & Promo Codes</a>
                 </li>
             </ul>
         </li>
@@ -137,14 +161,8 @@
                 <li class="side-nav-menu-item {{ $pagetitle == 'Delivery Settings' ? 'active' : '' }}">
                     <a class="side-nav-menu-link" href="{{ route('settings') }}">Delivery Settings</a>
                 </li>
-                <li class="side-nav-menu-item {{ $pagetitle == 'Offers Settings' ? 'active' : '' }}">
-                    <a class="side-nav-menu-link" href="{{ route('settings') }}">Offers Settings</a>
-                </li>
                 <li class="side-nav-menu-item {{ $pagetitle == 'Notification Settings' ? 'active' : '' }}">
                     <a class="side-nav-menu-link" href="{{ route('settings') }}">Notification Settings</a>
-                </li>
-                <li class="side-nav-menu-item {{ $pagetitle == 'Gift Vouchers' ? 'active' : '' }}">
-                    <a class="side-nav-menu-link" href="{{ route('settings') }}">Gift Vouchers</a>
                 </li>
             </ul>
         </li>

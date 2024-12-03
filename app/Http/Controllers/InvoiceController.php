@@ -10,6 +10,7 @@ use App\Models\Setting;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Models\InvoiceDetail;
+use App\Models\Product;
 use App\Models\RewardSetting;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -116,6 +117,15 @@ class InvoiceController extends Controller
             $stock = Stock::find($detail->stockId);
             $stock->availablequantity -= $invoice_detail->quantity;
             $stock->save();
+
+            $product = Product::find($detail->productId);
+            if ($product->sellingtype == "Grams") {
+                $product->salescount += $detail->quantity / 1000;
+                $product->save();
+            } else {
+                $product->salescount += $detail->quantity;
+                $product->save();
+            }
         }
 
         return redirect()->route('invoices.print', $invoice->id);
