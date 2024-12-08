@@ -11,6 +11,7 @@ class Customer extends Model
         'email',
         'telephone',
         'address',
+        'description',
         'dob',
         'points',
         'creditlimit',

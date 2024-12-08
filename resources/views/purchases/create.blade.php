@@ -59,8 +59,8 @@
                                                 <tr>
                                                     <th>Product</th>
                                                     <th>Quantity</th>
-                                                    <th>Unit Price</th>
                                                     <th>Buying Price</th>
+                                                    <th>Unit Price</th>
                                                     <th>Market Price</th>
                                                     <th>Expire Date</th>
                                                     <th>Subtotal</th>
@@ -145,6 +145,11 @@
         color: #000000;
         cursor: not-allowed;
         border: none;
+    }
+
+    .invoice-table {
+        max-height: 250px;
+        overflow: auto;
     }
 </style>
 @push('js')
@@ -301,11 +306,11 @@
                     <td>
                         <input type="number" value="1" min="1" id="quantity-${productId}" class="quantity" onfocus="highlightMC(${productId})">
                     </td>
-                    <td>
-                        <input type="number" min="1" id="unitprice-${productId}" class="unitprice">
+                       <td>
+                        <input type="number" min="1" id="buyingprice-${productId}" class="buyingprice">
                     </td>
                     <td>
-                        <input type="number" min="1" id="buyingprice-${productId}" class="buyingprice">
+                        <input type="number" min="1" id="unitprice-${productId}" class="unitprice">
                     </td>
                     <td>
                         <input type="number" min="1" id="marketprice-${productId}" class="marketprice">
@@ -314,11 +319,11 @@
                         <input type="date" min="1" id="expiredate-${productId}" class="expiredate">
                     </td>
                     <td>
-                        <input type="number" min="1" id="subtotal-${productId}" class="subtotal" readonly>
-                        <input type="number" min="1" id="unittotal-${productId}" class="unittotal" readonly hidden>
+                        <input type="number" min="1" id="subtotal-${productId}" class="subtotal" readonly step="0.01">
+                        <input type="number" min="1" id="unittotal-${productId}" class="unittotal" readonly step="0.01">
                     </td>
                     <td>
-                        <button class="btn btn-danger" onclick="removeProduct(${productId})">
+                        <button type="button" class="btn btn-danger" onclick="removeProduct(${productId})">
                             <i class="bi bi-x-lg"></i>
                         </button>
                     </td>
@@ -328,7 +333,8 @@
             $('#tblBody').append(markup);
             calculateItemCount();
 
-            $(`#quantity-${productId}, #buyingprice-${productId}`).on('keyup', function() {
+            $(`#quantity-${productId}, #buyingprice-${productId},
+            #unitprice-${productId}`).on('keyup', function() {
                 const quantity = parseFloat($(`#quantity-${productId}`).val()) || 0;
                 const price = parseFloat($(`#buyingprice-${productId}`).val()) || 0;
                 const unitprice = parseFloat($(`#unitprice-${productId}`).val()) || 0;
@@ -421,6 +427,9 @@
                 const subtotal = parseFloat($(`#subtotal-${productId}`).val()) || 0;
                 const unittotal = parseFloat($(`#unittotal-${productId}`).val()) || 0;
                 const expiredate = $(`#expiredate-${productId}`).val();
+
+
+
                 if (quantity <= 0 || unitPrice <= 0 || buyingPrice <= 0 || marketPrice <= 0 || subtotal <=
                     0 || unittotal <= 0) {
                     allValid = false;
@@ -452,7 +461,12 @@
             };
 
             $('#txtJson').val(JSON.stringify(formData));
-            $('#frmPurchases').submit();
+            if (allValid) {
+                const userConfirmed = confirm('Are you sure you want to submit the form?');
+                if (userConfirmed) {
+                    $('#frmPurchases').submit();
+                }
+            }
         });
     </script>
 @endpush

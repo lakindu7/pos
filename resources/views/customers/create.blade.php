@@ -69,23 +69,29 @@
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
                                         <label for="txtAddress">Address</label>
-                                        <textarea class="form-control @error('address') is-invalid @enderror"
-                                            id="txtAddress" name="address" rows="3">{{ old('address') }}</textarea>
+                                        <textarea class="form-control @error('address') is-invalid @enderror" id="txtAddress" name="address" rows="3">{{ old('address') }}</textarea>
                                         @error('address')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-12 d-flex justify-content-end">
-                                    <button class="btn btn-primary">Submit</button>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="txtDescription">Description</label>
+                                    <textarea class="form-control" id="txtDescription" name="description" rows="3">{{ old('address') }}</textarea>
                                 </div>
                             </div>
-                    </form>
+                        </div>
                 </div>
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-end">
+                        <button class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+                </form>
             </div>
         </div>
+    </div>
     </div>
 @endsection

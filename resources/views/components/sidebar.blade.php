@@ -119,9 +119,9 @@
                 <span class="side-nav__indicator side-nav-fadeout-on-closed"></span>
             </a>
             <ul id="promotions" class="side-nav-menu side-nav-menu-second-level mb-0"
-                @isset($selectedlink) @if ($selectedlink === 'Offers') style="display: block;" @endif @endisset>
+                @isset($selectedlink) @if ($selectedlink === 'Promotions') style="display: block;" @endif @endisset>
                 <li class="side-nav-menu-item {{ $pagetitle == 'Offers' ? 'active' : '' }}">
-                    <a class="side-nav-menu-link" href="{{ route('expenses') }}">Offers</a>
+                    <a class="side-nav-menu-link" href="{{ route('offers') }}">Offers</a>
                 </li>
                 <li class="side-nav-menu-item {{ $pagetitle == 'Vouchers & Promo Codes' ? 'active' : '' }}">
                     <a class="side-nav-menu-link" href="{{ route('expensecategories') }}">Vouchers & Promo Codes</a>

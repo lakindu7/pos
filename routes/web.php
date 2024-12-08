@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\Pos\PosController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -196,6 +197,13 @@ Route::middleware('auth')->group(function () {
             Route::post('/purchases/delete/{id}', 'destroy')->name('purchases.destroy');
             Route::get('/purchases/autocomplete/products', 'autocomplete');
             Route::get('/get/products/{id}', 'getProduct');
+        });
+
+        Route::controller(OfferController::class)->group(function () {
+            Route::get('/offers', 'index')->name('offers');
+            Route::get('/offers/create', 'create')->name('offers.create');
+            Route::post('/offers/store', 'store')->name('offers.store');
+            Route::get('/offers/search-products', 'searchProducts');
         });
     });
 

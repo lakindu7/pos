@@ -1,10 +1,10 @@
-@extends('layouts.admin', ['pagetitle' => 'Products Management', 'selectedlink' => 'Products'])
+@extends('layouts.admin', ['pagetitle' => 'Invoice Management'])
 @section('content')
     <div class="row">
         <div class="col-12 mb-3 mb-md-4">
             <div class="card h-100">
                 <div class="card-header d-flex">
-                    <h5 class="h6 font-weight-semi-bold text-uppercase mb-0">All Products</h5>
+                    <h5 class="h6 font-weight-semi-bold text-uppercase mb-0">All Invoices</h5>
                     <div class="ml-auto">
                         <a href="{{ route('pos') }}" target="_blank" class="btn btn-primary btn-sm">Add New</a>
                     </div>
