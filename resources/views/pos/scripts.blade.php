@@ -1,5 +1,7 @@
 <script>
+    let outCredit = 0;
     $(document).ready(function() {
+
         $('#txtProduct').autocomplete({
             source: function(request, response) {
                 $.ajax({
@@ -55,11 +57,15 @@
                 if (outstanding > 0) {
                     $('.topbar').addClass('credit-card');
                     $('#warningAudio').get(0).play();
+                    $('#spnOut').html('LKR ' + outstanding);
+                    $('.pulse-text').removeAttr('hidden');
+                    outCredit = outstanding;
                 } else {
                     $('#credit-section').attr('hidden', 'hidden');
+                    $('.pulse-text').attr('hidden', 'hidden');
                 }
             } else {
-                alert('Please select a customer.');
+                toastr.warning('Please Select a Customer!', 'Warning');
             }
         });
 
@@ -80,7 +86,6 @@
                 `;
 
                 $('.dataTable tbody').prepend(newRow);
-
                 $('#newtxtName').val("");
                 $('#newtxtTelephone').val("");
                 $('#newtxtEmail').val("");
@@ -88,9 +93,8 @@
 
                 $('#select-customer-tab').tab('show');
             } else {
-                alert('Please fill out all required fields.');
+                toastr.warning('Please Fill all required fields', 'Warning');
             }
-
         });
     });
 
@@ -110,11 +114,11 @@
                         getStock(response.product_id);
                         $('#txtBarcode').val("");
                     } else {
-                        alert('Product not found!');
+                        toastr.error('Product Not Found', 'Error');
                     }
                 },
                 error: function() {
-                    alert('Error retrieving product information.');
+                    toastr.error('Something Went Wrong', 'Error');
                 }
             });
         }
@@ -127,23 +131,81 @@
     let isSubmitting = false;
 
     $('#frmInvoice').on('submit', function(event) {
+        let customerid = $('#customerId').val();
         let rowCount = $('#tblBody tr').length;
         if (rowCount > 0) {
             if (!isSubmitting) {
                 event.preventDefault();
-                if (confirm('Are you sure you want to submit this invoice?')) {
-                    const jsonData = getTableData();
-                    $('#txtInvoicedetails').val(jsonData);
-                    isSubmitting = true;
-                    $(this).submit();
+                let balance = $('#txtBalance').val();
+                if (balance < 0) {
+                    if (customerid == "") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "You are going to submit a CREDIT INVOICE, Please add a customer",
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Are you sure?",
+                            text: "You are going to submit a Credit Invoice. Are you sure to do this?",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Yes, Submit it!"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                submitInvoice();
+                            }
+                        });
+                    }
+                } else {
+                    if (outCredit > 0) {
+                        Swal.fire({
+                            title: "Outstanding Credit",
+                            text: "This customer has Outstanding Credit. Do you need to settle it from balance?",
+                            icon: "warning",
+                            showDenyButton: true,
+                            showCancelButton: true,
+                            confirmButtonText: "Yes, Settle it!",
+                            denyButtonText: `Don't Settle!`
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $('#txtCreditSettle').val(1);
+                                submitInvoice();
+                            } else if (result.isDenied) {
+                                submitInvoice();
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Are you sure?",
+                            text: "You are about to submit this invoice",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Yes, Submit it!"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                submitInvoice();
+                            }
+                        });
+                    }
                 }
             }
         } else {
-            alert('Please add products to the invoice.');
+            toastr.error('Please add products to the invoice.', 'Error');
             event.preventDefault();
         }
     });
 
+    function submitInvoice() {
+        const jsonData = getTableData();
+        $('#txtInvoicedetails').val(jsonData);
+        isSubmitting = true;
+        $('#frmInvoice').submit();
+    }
 
     function getStock(productId) {
         $.ajax({
@@ -214,14 +276,14 @@
                         $(`#quantity-${productId}`).focus();
 
                     } else {
-                        alert('Not Enough Stock Available');
+                        toastr.warning('Not Enough Stock Available!', 'Warning');
                     }
                 } else {
-                    alert('Error: ' + response.message);
+                    console.log('Error: ' + response.message);
                 }
             },
             error: function(xhr) {
-                alert('An error occurred: ' + xhr.status + ' ' + xhr.statusText);
+                console.log('An error occurred: ' + xhr.status + ' ' + xhr.statusText);
             }
         });
     }
@@ -229,8 +291,6 @@
     function highlightMC(productId) {
         $(`#quantity-${productId}`).select();
     }
-
-
 
     function removeProduct(productId) {
         const isConfirmed = confirm("Are you sure you want to remove this product?");
@@ -298,11 +358,11 @@
             let quantity = parseInt($(this).val());
 
             if (quantity > availableQuantity) {
-                alert(
-                    `The quantity cannot exceed the available stock of ${availableQuantity}.`
-                );
+                toastr.warning(`The quantity cannot exceed the available stock of ${availableQuantity}.`,
+                    'Warning');
                 $(this).val(availableQuantity);
                 quantity = availableQuantity;
+                $(this).select();
             }
             const price = parseFloat($(`#price-${productId}`).val());
             const marketprice = parseFloat($(`#marketprice-${productId}`).val());
@@ -489,5 +549,22 @@
 
     $('#cancelModal').on('shown.bs.modal', function() {
         $('#txtInvoiceid').focus();
+    });
+
+    $('#btnDayend').click(function() {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let url = "{{ route('dayend') }}";
+                window.location.href = url;
+            }
+        });
     });
 </script>

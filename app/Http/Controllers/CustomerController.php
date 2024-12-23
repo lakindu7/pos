@@ -23,7 +23,6 @@ class CustomerController extends Controller
     {
         $request->validate([
             'name' => ['required',  'max:255'],
-            'email' => ['required', 'unique:customers', 'email'],
             'telephone' => ['required', 'unique:customers', 'regex:/^[0-9]{10}$/']
         ]);
 
@@ -44,7 +43,6 @@ class CustomerController extends Controller
     {
         $request->validate([
             'name' => ['required',  'max:255'],
-            'email' => ['required', 'unique:customers,email,' . $id, 'email'],
             'telephone' => ['required', 'unique:customers,telephone,' . $id, 'regex:/^[0-9]{10}$/']
         ]);
 

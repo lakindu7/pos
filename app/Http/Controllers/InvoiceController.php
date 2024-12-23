@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CollectedCredit;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Stock;
@@ -13,6 +14,7 @@ use App\Models\InvoiceDetail;
 use App\Models\Product;
 use App\Models\RewardSetting;
 use Illuminate\Support\Facades\DB;
+use PDO;
 use Yajra\DataTables\Facades\DataTables;
 
 
@@ -21,7 +23,7 @@ class InvoiceController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $invoices = Invoice::with('customer:id,name')->where('status', 1)
+            $invoices = Invoice::with('customer:id,name')->where('status', 1)->orderby('created_at', 'desc')
                 ->select([
                     'id',
                     'invoiceid',
@@ -63,11 +65,20 @@ class InvoiceController extends Controller
 
     public function store(Request $request)
     {
-
         $customerid = "";
-        $customer = Customer::where('email', $request->email)
-            ->orWhere('telephone', $request->telephone)
-            ->first();
+        $customer = "";
+
+        if ($request->filled('email') || $request->filled('telephone')) {
+            $query = Customer::query();
+            if ($request->filled('email')) {
+                $query->where('email', $request->email);
+            }
+            if ($request->filled('telephone')) {
+                $query->orWhere('telephone', $request->telephone);
+            }
+            $customer = $query->first();
+        }
+
         if ($customer) {
             $customerid = $customer->id;
         } else {
@@ -85,20 +96,46 @@ class InvoiceController extends Controller
                 $customerid = $request->customer_id;
             }
         }
-
-
         $invoice = Invoice::create($request->all());
+
+        $invoicetype = $request->invoicetype ?? "Cash";
+
+        if ($invoice->balance < 0) {
+            $invoicetype = "Credit";
+            $customer->outstandingbalance += abs($invoice->balance);
+            $customer->save();
+        }
+
+        if ($request->creditsettle == 1) {
+            $customer->outstandingbalance -= abs($invoice->balance);
+            $customer->save();
+
+            $collectedcredit = new CollectedCredit;
+            $collectedcredit->collectedamount = abs($invoice->balance);
+            $collectedcredit->customer_id = $customerid;
+            $collectedcredit->invoice_id = $invoice->id;
+            $collectedcredit->user_id = $request->user_id;
+            $collectedcredit->save();
+        }
+
         $invoice->invoiceid = $this->generateInvoiceId();
         $invoice->customer_id = $customerid;
-        $invoice->invoicetype = $request->invoicetype ?? "Cash";
+        $invoice->invoicetype = $invoicetype;
         $invoice->save();
 
         $isPoints = Setting::first()->loyaltypoints;
-        if ($isPoints) {
+        if ($isPoints && $invoice->balance >= 0) {
             $points = $this->calculatePoints($request->amount);
             $invoice->points = $points;
             $invoice->save();
+
+            if ($customerid) {
+                $customer = Customer::find($customerid);
+                $customer->points += $points;
+                $customer->save();
+            }
         }
+
         $details = json_decode($request->invoicedetails);
         foreach ($details as $key => $detail) {
             $invoice_detail = new InvoiceDetail();
@@ -155,7 +192,7 @@ class InvoiceController extends Controller
     {
         $pointdetail = RewardSetting::first();
         if ($pointdetail->mintotal < $total) {
-            $points = $total / 100;
+            $points = $total / $pointdetail->spendamount;
             if ($points > $pointdetail->maxpoint && $pointdetail->maxpoint != NULL) {
                 $points = $pointdetail->maxpoint;
             }

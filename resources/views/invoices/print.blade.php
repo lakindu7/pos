@@ -113,11 +113,27 @@
                 </table>
                 <hr>
             </div>
-            <div class="col-12" style="text-align: center; ">
-                <h5 style="font-size:12px; font-weight:bold">ඔබට ලැබුණු ලාභය රුපියල්</h5>
-                <h5>{{ $invoice->markettotal - $invoice->amount + $invoice->discountamount }}</h5>
-            </div>
-            <br>
+            @if ($invoice->markettotal - $invoice->amount + $invoice->discountamount > 0)
+                <div class="col-12" style="text-align: center;">
+                    <h5 style="font-size:12px; font-weight:bold">ඔබට ලැබුණු ලාභය රුපියල්</h5>
+                    <h5>{{ $invoice->markettotal - $invoice->amount + $invoice->discountamount }}</h5>
+                </div>
+                <br>
+            @endif
+            @if (isset($invoice->customer))
+                @if ($invoice->points > 0)
+                    <div class="col-12" style="text-align: center; font-size:12px">
+                        <p>බිල්පතට අදාල Loyalty Points ගණන - {{ $invoice->points }}</p>
+                    </div>
+                    <br>
+                @endif
+                @if ($invoice->customer->points > 0)
+                    <div class="col-12" style="text-align: center; font-size:12px">
+                        <p>සම්පූර්ණ Loyalty Points ගණන - {{ $invoice->customer->points }}</p>
+                    </div>
+                    <br>
+                @endif
+            @endif
             <div class="col-12" style="text-align: center; font-size:12px">
                 <p style="margin-top: 5px;"><b> {{ $setting->greetingmessage }}</b></p>
 

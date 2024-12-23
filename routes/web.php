@@ -197,6 +197,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/purchases/delete/{id}', 'destroy')->name('purchases.destroy');
             Route::get('/purchases/autocomplete/products', 'autocomplete');
             Route::get('/get/products/{id}', 'getProduct');
+            Route::get('/get/products/barcode/{barcode}/{supplierId}', 'getProductbyBarcode');
         });
 
         Route::controller(OfferController::class)->group(function () {

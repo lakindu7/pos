@@ -57,6 +57,18 @@ class PurchaseController extends Controller
     {
         $product = Product::find($id);
 
+
+        if (!$product) {
+            return response()->json([
+                'message' => 'Product not found'
+            ], 404);
+        }
+        return response()->json($product);
+    }
+
+    public function getProductbyBarcode($barcode, $supplierId)
+    {
+        $product = Product::where('barcode', $barcode)->where('supplier_id', $supplierId)->first();
         if (!$product) {
             return response()->json([
                 'message' => 'Product not found'

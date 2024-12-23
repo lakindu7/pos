@@ -16,7 +16,8 @@
                     </div>
                     <div class="col-4 d-flex justify-content-end">
                         <span>
-                            <button class="btn btn-danger btn-sm"><i class="bi bi-calendar3"></i> Day End</button>
+                            <button type="button" id="btnDayend" class="btn btn-danger btn-sm"><i
+                                    class="bi bi-calendar3"></i> Day End</button>
                             <button class="btn btn-success btn-sm"><i class="bi bi-person-fill"></i>
                                 {{ Auth::user()->name }}</button>
                         </span>
@@ -110,8 +111,16 @@
                                 <p># Items: <span id="spnTotalItems">0</span></p>
                             </div>
                         </div>
-                        <p>Discount: <span id="spnDiscount">0</span></p>
-                        <h6>Total Payable: LKR <span id="spnPayable">0</span></h6>
+                        <div class="row">
+                            <div class="col-6">
+                                <p>Discount: <span id="spnDiscount">0</span></p>
+                                <h6>Total Payable: LKR <span id="spnPayable">0</span></h6>
+                            </div>
+                            <div class="col-6">
+                                <h4 class="pulse-text" hidden>Outstanding: <span id="spnOut"></span></h4>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-12 col-md-4">
@@ -121,7 +130,8 @@
                             <textarea name="invoicedetails" id="txtInvoicedetails" cols="30" rows="10" readonly hidden> </textarea>
                             <input type="hidden" class="form-control" id="txtCusName" name="name" readonly>
                             <input type="hidden" class="form-control" id="txtFulltotal" name="amount" readonly>
-                            <input type="hidden" class="form-control" id="txtDiscounttype" name="discounttype" readonly>
+                            <input type="hidden" class="form-control" id="txtDiscounttype" name="discounttype"
+                                readonly>
                             <input type="hidden" class="form-control" id="txtDiscount" name="discount" readonly>
                             <input type="hidden" class="form-control" id="txtPayable" name="payable" readonly>
                             <input type="hidden" class="form-control" id="txtDiscountamount" name="discountamount"
@@ -132,6 +142,7 @@
                             <input type="hidden" id="customerId" name="customer_id" readonly>
                             <input type="hidden" id="txtEmail" name="email" readonly>
                             <input type="hidden" id="txtDOB" name="dob" readonly>
+                            <input type="hidden" id="txtCreditSettle" name="creditsettle" value="0" readonly>
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" readonly>
                             <div class="row pt-2">
                                 <div class="col-6">
@@ -159,8 +170,6 @@
                         </div>
                         <div class="row ">
                             <div class="col-12">
-                                <a href="#" class="btn btn-danger flex-fill"><i class="bi bi-wallet"></i>
-                                    Credit</a>
                                 <a href="#" class="btn btn-success flex-fill"> <i
                                         class="bi bi-credit-card-2-front"></i> Card</a>
                                 <a href="#" class="btn btn-warning flex-fill"><i class="bi bi-qr-code-scan"></i>
@@ -190,13 +199,7 @@
         </div>
     </div>
 
-
-
-    @if ($dayEndcompleted != '')
-        @include('pos.components.dayendnotcomp')
-    @endif
     @include('pos.components.daystart')
-
     @include('pos.components.customer')
     @include('pos.components.stock')
     @include('pos.components.discount')
@@ -214,11 +217,38 @@
         background-color: #007bff !important;
         color: #fff !important;
     }
+
+    @keyframes textPulse {
+        0% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: 0.75;
+            transform: scale(1.1);
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .pulse-text {
+        margin-top: 15px;
+        padding: 10px 4px;
+        font-size: 18px;
+        color: #ff0000;
+        background: #fff;
+        font-weight: bold;
+        text-align: left;
+        animation: textPulse 1.0s infinite;
+    }
 </style>
 @push('js')
     @include('pos.scripts')
-    {{-- @if ($dayEndcompleted == '') --}}
-    @if ($startday == false)
+    @if ($dayEndcompleted == true)
         <script>
             $(document).ready(function() {
                 var myModal = new bootstrap.Modal($('#staticBackdrop')[0]);
@@ -226,12 +256,4 @@
             });
         </script>
     @endif
-    {{-- @else --}}
-    <script>
-        $(document).ready(function() {
-            var myModal = new bootstrap.Modal($('#dayendNot')[0]);
-            myModal.show();
-        });
-    </script>
-    {{-- @endif --}}
 @endpush

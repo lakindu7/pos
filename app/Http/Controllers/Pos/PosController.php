@@ -19,14 +19,17 @@ class PosController extends Controller
 {
     public function index()
     {
-        $startday = Dailydetail::whereDate('created_at', Carbon::today())->exists();
         $dayEndcompleted = "";
-        if (!$startday) {
-            $latestRecord = Dailydetail::latest('created_at')->first();
-            if ($latestRecord->ended_by == null) {
+
+        $latestRecord = Dailydetail::latest('created_at')->first();
+        if ($latestRecord) {
+            if ($latestRecord->ended_by != null) {
                 $dayEndcompleted = $latestRecord->created_at;
             }
+        } else {
+            $dayEndcompleted = Carbon::now();
         }
+
         $products = Product::where('status', 1)->orderby('salescount', 'desc')->limit(12)->get();
         $customers = Customer::where('status', 1)->get();
         $categories = ExpenseCategory::where('status', 1)->where('id', '!=', 1)->get();
@@ -36,7 +39,6 @@ class PosController extends Controller
             'customers',
             'categories',
             'recenttransactions',
-            'startday',
             'dayEndcompleted'
         ));
     }
@@ -74,6 +76,12 @@ class PosController extends Controller
         $invoice->status = 0;
         $invoice->save();
 
+        if (isset($invoice->customer_id)) {
+            $customer = Customer::find($invoice->customer_id);
+            $customer->points -= $invoice->points;
+            $customer->save();
+        }
+
         $invoicedetails = InvoiceDetail::where('invoice_id', $invoice->id)->where('status', 1)->get();
 
         InvoiceDetail::where('invoice_id', $invoice->id)
@@ -96,13 +104,15 @@ class PosController extends Controller
 
     public function dayend($date = null)
     {
-        $date = $date ?? today();
-        $dailydetail = Dailydetail::whereDate('created_at', $date)->first();
-        $totalAmount = Invoice::whereDate('created_at', $date)->sum('amount');
-        $totalExpense = Expense::whereDate('created_at', $date)->sum('amount');
-        $totalPurchase = Purchase::whereDate('created_at', $date)
+        $date = $date ?? Dailydetail::max('created_at');
+        $today = today();
+        $dailydetail = Dailydetail::latest()->first();
+        $totalAmount = Invoice::whereBetween('created_at', [$date, $today])->sum('amount');
+        $totalExpense = Expense::whereBetween('created_at', [$date, $today])->sum('amount');
+        $totalPurchase = Purchase::whereBetween('created_at', [$date, $today])
             ->where('paymentmethod', 'cash')
             ->sum('total');
+
         return view('pos.dayend', compact('totalPurchase', 'totalAmount', 'totalExpense', 'date', 'dailydetail'));
     }
 }

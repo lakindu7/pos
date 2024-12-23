@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Expense;
 use App\Models\Invoice;
+use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -10,7 +12,73 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('dashboard');
+        $totalpurchase = Purchase::where('status', 1)
+            ->whereDate('created_at', today())
+            ->sum(DB::raw("CASE
+        WHEN paymentmethod = 'cash' THEN total
+        WHEN paymentmethod = 'Half' THEN payment
+        ELSE 0
+        END"));
+        $totalincome = Invoice::where('status', 1)->where('invoicetype', 'cash')->whereDate('created_at', today())->sum('amount');
+        $totalexpense = Expense::where('status', 1)->whereDate('created_at', today())->sum('amount');
+        $profit = $totalincome - ($totalexpense);
+
+        $startDate = now()->subDays(30);
+        $startDate365 = now()->subDays(365);
+        $endDate = now();
+        $totalpurchase30 = Purchase::where('status', 1)
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->sum(DB::raw("CASE
+        WHEN paymentmethod = 'cash' THEN total
+        WHEN paymentmethod = 'Half' THEN payment
+        ELSE 0
+    END"));
+
+        $totalincome30 = Invoice::where('status', 1)
+            ->where('invoicetype', 'cash')
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->sum('amount');
+        $totalexpense30 = Expense::where('status', 1)
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->sum('amount');
+        $profit30 = $totalincome30 - ($totalexpense30);
+
+        $totalpurchase365 = Purchase::where('status', 1)
+            ->whereBetween('created_at', [$startDate365, $endDate])
+            ->sum(DB::raw("CASE
+        WHEN paymentmethod = 'cash' THEN total
+        WHEN paymentmethod = 'Half' THEN payment
+        ELSE 0
+    END"));
+
+        // Calculate total income
+        $totalincome365 = Invoice::where('status', 1)
+            ->where('invoicetype', 'cash')
+            ->whereBetween('created_at', [$startDate365, $endDate])
+            ->sum('amount');
+
+        // Calculate total expense
+        $totalexpense365 = Expense::where('status', 1)
+            ->whereBetween('created_at', [$startDate365, $endDate])
+            ->sum('amount');
+
+        // Calculate profit
+        $profit365 = $totalincome365 - ($totalexpense365);
+
+        return view('dashboard', compact(
+            'totalpurchase',
+            'totalincome',
+            'totalexpense',
+            'profit',
+            'totalpurchase30',
+            'totalincome30',
+            'totalexpense30',
+            'profit30',
+            'totalpurchase365',
+            'totalincome365',
+            'totalexpense365',
+            'profit365',
+        ));
     }
 
     public function getDailyAmounts()

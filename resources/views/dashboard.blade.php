@@ -12,16 +12,114 @@
                 <div class="card-body p-0">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-12 col-md-6">
-                                <div class="card shadow">
-                                    <canvas id="dailyTotalsChart"></canvas>
+                            <div class="col-12 col-md-4">
+                                <div class="card shadow p-4">
+                                    <h5>Daily Summary</h5>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p>Total Income</p>
+                                        </div>
+                                        <div class="col-6 text-right">{{ number_format($totalincome ?? 0, 2) }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p>Total Purchasing</p>
+                                        </div>
+                                        <div class="col-6 text-right">{{ number_format($totalpurchase ?? 0, 2) }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p>Total Expenses</p>
+                                        </div>
+                                        <div class="col-6 text-right">{{ number_format($totalexpense ?? 0, 2) }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p>Profit/Loss</p>
+                                        </div>
+                                        <div class="col-6 text-right">{{ number_format($profit ?? 0, 2) }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="card shadow p-4">
+                                    <h5>Last 30 Days Summary</h5>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p>Total Income</p>
+                                        </div>
+                                        <div class="col-6 text-right">{{ number_format($totalpurchase30 ?? 0, 2) }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p>Total Purchasing</p>
+                                        </div>
+                                        <div class="col-6 text-right">{{ number_format($totalincome30 ?? 0, 2) }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p>Total Expenses</p>
+                                        </div>
+                                        <div class="col-6 text-right">{{ number_format($totalexpense30 ?? 0, 2) }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p>Profit/Loss</p>
+                                        </div>
+                                        <div class="col-6 text-right">{{ number_format($profit30 ?? 0, 2) }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="card shadow p-4">
+                                    <h5>Last 365 Days Summary</h5>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p>Total Income</p>
+                                        </div>
+                                        <div class="col-6 text-right">{{ number_format($totalpurchase365 ?? 0, 2) }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p>Total Purchasing</p>
+                                        </div>
+                                        <div class="col-6 text-right">{{ number_format($totalincome365 ?? 0, 2) }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p>Total Expenses</p>
+                                        </div>
+                                        <div class="col-6 text-right">{{ number_format($totalexpense365 ?? 0, 2) }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p>Profit/Loss</p>
+                                        </div>
+                                        <div class="col-6 text-right">{{ number_format($profit365 ?? 0, 2) }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-4">
+                            <div class="col-12 col-md-4">
+                                <div class="card shadow p-4">
+                                    <h5>Daily Invoice Count</h5>
+                                    <hr>
+                                    <canvas id="twoHourIntervalChart"></canvas>
                                     <button id="refreshChartBtn" style="margin-top: 20px;"> <i id="refreshBtn"
                                             class="gd-reload icon-text align-middle"></i></button>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6">
-                                <div class="card shadow">
-                                    <canvas id="twoHourIntervalChart"></canvas>
+                        </div>
+                        <div class="row pt-4">
+                            <div class="col-12">
+                                <div class="card shadow p-4">
+                                    <h5>Total Sale (Last 30 Days)</h5>
+                                    <hr>
+                                    <canvas id="dailyTotalsChart"></canvas>
                                     <button id="refreshChartBtn" style="margin-top: 20px;"> <i id="refreshBtn"
                                             class="gd-reload icon-text align-middle"></i></button>
                                 </div>
@@ -54,11 +152,20 @@
                 url: "{{ route('invoices.chartData') }}",
                 method: "GET",
                 success: function(data) {
+                    // Preprocess labels to include day names
+                    const labelsWithDayNames = data.dailyTotals.labels.map(label => {
+                        const date = new Date(label); // Convert to Date object
+                        const dayName = date.toLocaleString('en-US', {
+                            weekday: 'short'
+                        }); // Get short day name (e.g., Mon, Tue)
+                        return `${label} (${dayName})`; // Combine date and day name
+                    });
+
                     const dailyCtx = $('#dailyTotalsChart')[0].getContext('2d');
                     new Chart(dailyCtx, {
                         type: 'line',
                         data: {
-                            labels: data.dailyTotals.labels,
+                            labels: labelsWithDayNames, // Use modified labels
                             datasets: [{
                                 label: 'Total Sale',
                                 data: data.dailyTotals.data,

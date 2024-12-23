@@ -43,11 +43,18 @@
                                 </div>
                             </div>
                             <div class="row pt-4">
-                                <div class="col-12">
+                                <div class="col-12 col-md-6">
                                     <div class="form-group">
                                         <label for="txtProduct">Product</label>
                                         <input type="text" class="form-control" id="txtProduct"
                                             placeholder="Product Name / SKU">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="txtBarcode">Barcode</label>
+                                        <input type="text" class="form-control" id="txtBarcode" name="barcode"
+                                            placeholder="Barcode">
                                     </div>
                                 </div>
                             </div>
@@ -229,10 +236,35 @@
                 } else if (paymentMethod == 'Half') {
                     $('#txtPayment').removeAttr("readonly");
                 } else if (paymentMethod == 'Cash') {
+                    $('#txtPayment').val($('#txtTotal').val());
                     $('#txtPayment').attr("readonly", "readonly");
                 }
                 $('#paymentinfo').html(paymentInfoHtml);
             });
+        });
+
+        $('#txtBarcode').on('change', function() {
+            let barcode = $(this).val();
+            const supplierId = $('#cmbSupplier').val();
+            if (!supplierId) {
+                alert("Please select a supplier.");
+                $(this).val("");
+                $('#cmbSupplier').focus();
+                return;
+            }
+            if (barcode.length >= 8) {
+                $.ajax({
+                    url: `/get/products/barcode/${barcode}/${supplierId}`,
+                    method: 'GET',
+                    success: function(response) {
+                        appendTable(response.name_si, response.id, response.sellingtype);
+                        $('#txtBarcode').val("");
+                    },
+                    error: function() {
+                        alert('Error retrieving product information.');
+                    }
+                });
+            }
         });
 
         $('#txtProduct').autocomplete({
@@ -434,7 +466,7 @@
                     0 || unittotal <= 0) {
                     allValid = false;
                     $(this).addClass('error');
-                    alert(`Please fill in all values for product ID: ${productname}.`);
+                    alert(`Please fill in all values for product: ${productname}.`);
                     return false;
                 } else {
                     rows.push({
